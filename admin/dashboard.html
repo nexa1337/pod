@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXA Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-dashboard">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <svg viewBox="0 0 350 80" xmlns="http://www.w3.org/2000/svg" style="width: 120px; height: 30px;">
+                    <text x="5" y="55" style="font-family: Arial, sans-serif; font-weight: 900; font-size: 40px; letter-spacing: 8px; fill: white;">N E X A</text>
+                    <text x="220" y="55" style="font-family: Arial, sans-serif; font-weight: 900; font-size: 40px; letter-spacing: 2px; fill: rgb(106, 121, 250);">1337</text>
+                </svg>
+            </div>
+            <button id="sidebarToggle" class="sidebar-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="#dashboard" class="nav-item active" data-section="dashboard">
+                <i class="fas fa-chart-line"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#products" class="nav-item" data-section="products">
+                <i class="fas fa-box"></i>
+                <span>Products</span>
+            </a>
+            <a href="#categories" class="nav-item" data-section="categories">
+                <i class="fas fa-folder"></i>
+                <span>Categories</span>
+            </a>
+            <a href="#settings" class="nav-item" data-section="settings">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+            <a href="#orders" class="nav-item" data-section="orders">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Orders</span>
+            </a>
+            <a href="#users" class="nav-item" data-section="users">
+                <i class="fas fa-users"></i>
+                <span>Users</span>
+            </a>
+            <a href="#home-content" class="nav-item" data-section="home-content">
+                <i class="fas fa-home"></i>
+                <span>Home Content</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button id="logoutBtn" class="btn-logout">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <!-- Header -->
+        <header class="admin-header">
+            <div class="header-left">
+                <h1 id="pageTitle">Dashboard</h1>
+            </div>
+            <div class="header-right">
+                <div class="admin-user">
+                    <span id="adminName">Admin</span>
+                    <img src="https://via.placeholder.com/40" alt="Admin" class="admin-avatar">
+                </div>
+            </div>
+        </header>
+
+        <!-- Content Area -->
+        <div class="admin-content">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="content-section active">
+                <div class="dashboard-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-box"></i></div>
+                        <div class="stat-info">
+                            <h3>Total Products</h3>
+                            <p id="totalProducts" class="stat-value">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-shopping-cart"></i></div>
+                        <div class="stat-info">
+                            <h3>Total Orders</h3>
+                            <p id="totalOrders" class="stat-value">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-users"></i></div>
+                        <div class="stat-info">
+                            <h3>Total Users</h3>
+                            <p id="totalUsers" class="stat-value">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-dollar-sign"></i></div>
+                        <div class="stat-info">
+                            <h3>Total Revenue</h3>
+                            <p id="totalRevenue" class="stat-value">0 MAD</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-actions">
+                    <button class="btn-primary" onclick="navigateToSection('products')">
+                        <i class="fas fa-plus"></i> Add New Product
+                    </button>
+                    <button class="btn-secondary" onclick="navigateToSection('settings')">
+                        <i class="fas fa-cog"></i> Website Settings
+                    </button>
+                </div>
+            </section>
+
+            <!-- Products Section -->
+            <section id="products" class="content-section">
+                <div class="section-header">
+                    <h2>Product Management</h2>
+                    <button class="btn-primary" id="addProductBtn">
+                        <i class="fas fa-plus"></i> Add New Product
+                    </button>
+                </div>
+
+                <div class="products-table-container">
+                    <table class="products-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsTableBody">
+                            <!-- Products will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Add/Edit Product Modal -->
+                <div id="productModal" class="modal">
+                    <div class="modal-content">
+                        <button class="modal-close">&times;</button>
+                        <h2 id="productModalTitle">Add New Product</h2>
+                        
+                        <form id="productForm" class="product-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="productName">Product Name *</label>
+                                    <input type="text" id="productName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="productCategory">Category *</label>
+                                    <select id="productCategory" required>
+                                        <option value="">Select Category</option>
+                                        <option value="mens-clothing">Men's Clothing</option>
+                                        <option value="womens-clothing">Women's Clothing</option>
+                                        <option value="kids-clothing">Kids' & Youth Clothing</option>
+                                        <option value="hats">Hats</option>
+                                        <option value="accessories">Accessories</option>
+                                        <option value="home-living">Home & Living</option>
+                                        <option value="collections">Collections</option>
+                                        <option value="brands">Brands</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="productPrice">Price (MAD) *</label>
+                                    <input type="number" id="productPrice" required min="0" step="0.01">
+                                </div>
+                                <div class="form-group">
+                                    <label for="productOriginalPrice">Original Price (MAD)</label>
+                                    <input type="number" id="productOriginalPrice" min="0" step="0.01">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="productDescription">Description *</label>
+                                <textarea id="productDescription" required rows="3"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="productFullDescription">Full Description</label>
+                                <textarea id="productFullDescription" rows="4"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="productSizes">Available Sizes (comma-separated)</label>
+                                <input type="text" id="productSizes" placeholder="S, M, L, XL">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="productColors">Available Colors (comma-separated)</label>
+                                <input type="text" id="productColors" placeholder="Black, White, Navy">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="productImages">Product Image URL</label>
+                                <input type="url" id="productImages" placeholder="https://example.com/image.jpg">
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary">Save Product</button>
+                                <button type="button" class="btn-secondary" onclick="closeProductModal()">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Categories Section -->
+            <section id="categories" class="content-section">
+                <div class="section-header">
+                    <h2>Category Management</h2>
+                </div>
+                <div class="categories-grid" id="categoriesGrid">
+                    <!-- Categories will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings" class="content-section">
+                <div class="section-header">
+                    <h2>Website Settings</h2>
+                </div>
+
+                <div class="settings-tabs">
+                    <button class="settings-tab-btn active" data-tab="store">Store Info</button>
+                    <button class="settings-tab-btn" data-tab="theme">Theme</button>
+                    <button class="settings-tab-btn" data-tab="seo">SEO</button>
+                    <button class="settings-tab-btn" data-tab="social">Social Media</button>
+                </div>
+
+                <form id="settingsForm" class="settings-form">
+                    <!-- Store Information Tab -->
+                    <div id="store-tab" class="settings-tab-content active">
+                        <div class="settings-group">
+                            <h3><i class="fas fa-store"></i> Store Information</h3>
+                            <div class="form-group">
+                                <label for="storeName">Store Name</label>
+                                <input type="text" id="storeName" value="NEXA Print">
+                            </div>
+                            <div class="form-group">
+                                <label for="storeDescription">Store Description</label>
+                                <textarea id="storeDescription" rows="3" placeholder="Describe your store..."></textarea>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="storePhone">Phone Number</label>
+                                    <input type="tel" id="storePhone" value="+212 723 242 286">
+                                </div>
+                                <div class="form-group">
+                                    <label for="storeEmail">Email</label>
+                                    <input type="email" id="storeEmail" value="info@nexaprint.com">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="storeAddress">Address</label>
+                                    <input type="text" id="storeAddress" placeholder="Casablanca, Morocco">
+                                </div>
+                                <div class="form-group">
+                                    <label for="storeCountry">Country</label>
+                                    <input type="text" id="storeCountry" value="Morocco">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Theme Tab -->
+                    <div id="theme-tab" class="settings-tab-content">
+                        <div class="settings-group">
+                            <h3><i class="fas fa-palette"></i> Theme Settings</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="primaryColor">Primary Color</label>
+                                    <div class="color-picker-wrapper">
+                                        <input type="color" id="primaryColor" value="#6a79fa">
+                                        <span id="primaryColorValue">#6a79fa</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="secondaryColor">Secondary Color</label>
+                                    <div class="color-picker-wrapper">
+                                        <input type="color" id="secondaryColor" value="#1a1a1a">
+                                        <span id="secondaryColorValue">#1a1a1a</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="accentColor">Accent Color</label>
+                                    <div class="color-picker-wrapper">
+                                        <input type="color" id="accentColor" value="#27ae60">
+                                        <span id="accentColorValue">#27ae60</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="backgroundColor">Background Color</label>
+                                    <div class="color-picker-wrapper">
+                                        <input type="color" id="backgroundColor" value="#f5f5f5">
+                                        <span id="backgroundColorValue">#f5f5f5</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SEO Tab -->
+                    <div id="seo-tab" class="settings-tab-content">
+                        <div class="settings-group">
+                            <h3><i class="fas fa-search"></i> SEO Settings</h3>
+                            <div class="form-group">
+                                <label for="seoTitle">Meta Title</label>
+                                <input type="text" id="seoTitle" placeholder="NEXA Print - Premium Print-on-Demand">
+                            </div>
+                            <div class="form-group">
+                                <label for="seoDescription">Meta Description</label>
+                                <textarea id="seoDescription" rows="3" placeholder="Describe your website for search engines..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="seoKeywords">Keywords (comma-separated)</label>
+                                <input type="text" id="seoKeywords" placeholder="print on demand, custom apparel, merchandise">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social Media Tab -->
+                    <div id="social-tab" class="settings-tab-content">
+                        <div class="settings-group">
+                            <h3><i class="fas fa-share-alt"></i> Social Media Links</h3>
+                            <div class="form-group">
+                                <label for="socialFacebook">Facebook URL</label>
+                                <input type="url" id="socialFacebook" placeholder="https://facebook.com/nexaprint">
+                            </div>
+                            <div class="form-group">
+                                <label for="socialInstagram">Instagram URL</label>
+                                <input type="url" id="socialInstagram" placeholder="https://instagram.com/nexaprint">
+                            </div>
+                            <div class="form-group">
+                                <label for="socialTwitter">Twitter URL</label>
+                                <input type="url" id="socialTwitter" placeholder="https://twitter.com/nexaprint">
+                            </div>
+                            <div class="form-group">
+                                <label for="socialLinkedin">LinkedIn URL</label>
+                                <input type="url" id="socialLinkedin" placeholder="https://linkedin.com/company/nexaprint">
+                            </div>
+                            <div class="form-group">
+                                <label for="socialWhatsapp">WhatsApp Number</label>
+                                <input type="tel" id="socialWhatsapp" value="+212723242286">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Save All Settings</button>
+                        <button type="button" class="btn-secondary" onclick="resetSettings()">Reset to Default</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Orders Section -->
+            <section id="orders" class="content-section">
+                <div class="section-header">
+                    <h2>Orders Management</h2>
+                </div>
+                <div class="orders-table-container">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <!-- Orders will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Users Section -->
+            <section id="users" class="content-section">
+                <div class="section-header">
+                    <h2>User Management</h2>
+                </div>
+                <div class="users-table-container">
+                    <table class="users-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <!-- Users will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Home Content Section -->
+            <section id="home-content" class="content-section">
+                <div class="section-header">
+                    <h2>Home Page Content</h2>
+                </div>
+
+                <form id="homeContentForm" class="settings-form">
+                    <div class="settings-group">
+                        <h3><i class="fas fa-home"></i> Hero Section</h3>
+                        <div class="form-group">
+                            <label for="heroTitle">Hero Title</label>
+                            <input type="text" id="heroTitle" placeholder="Create Your Perfect Print">
+                        </div>
+                        <div class="form-group">
+                            <label for="heroSubtitle">Hero Subtitle</label>
+                            <textarea id="heroSubtitle" rows="2" placeholder="Premium print-on-demand products..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="heroCTA">Call-to-Action Button Text</label>
+                            <input type="text" id="heroCTA" placeholder="Explore Products">
+                        </div>
+                    </div>
+
+                    <div class="settings-group">
+                        <h3><i class="fas fa-info-circle"></i> About Section</h3>
+                        <div class="form-group">
+                            <label for="aboutTitle">About Title</label>
+                            <input type="text" id="aboutTitle" placeholder="About NEXA Print">
+                        </div>
+                        <div class="form-group">
+                            <label for="aboutMission">Mission Statement</label>
+                            <textarea id="aboutMission" rows="3" placeholder="Our mission..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Save Home Content</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <script src="js/admin-dashboard.js"></script>
+</body>
+</html>

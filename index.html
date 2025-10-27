@@ -11,23 +11,52 @@
     <meta property="og:type" content="website">
     
     <title>NEXA Print - Premium Print-on-Demand Storefront</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' font-weight='bold' fill='%231a1a1a'>N</text></svg>">
 </head>
 <body>
+    <!-- Added 3D icon container for hero section -->
+    <div id="threeContainer" style="display: none;"></div>
+
     <!-- Date/Time Bar -->
     <div class="date-time-bar">
         <span id="liveDate" class="live-date"></span>
         <span id="liveTime" class="live-time"></span>
     </div>
 
+    <!-- Added scroll-to-top button -->
+    <button id="scrollToTopBtn" class="scroll-to-top-btn" aria-label="Scroll to top" title="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <!-- Header -->
     <header class="header" role="banner">
         <div class="header-top">
             <div class="header-left">
                 <div class="logo">
-                    <img id="logoImg" src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' font-weight='bold' fill='%231a1a1a'>N</text></svg>" alt="NEXA Print Logo" class="logo-img">
-                    <span class="logo-text">NEXA Print</span>
+                    <!-- Updated logo with better spacing between NEXA and 1337 -->
+                    <svg id="customLogoDisplay" class="logo-svg" viewBox="0 0 350 80" xmlns="http://www.w3.org/2000/svg" style="width: 200px; height: 50px;">
+                        <defs>
+                            <style>
+                                .logo-nexa { font-family: 'Arial', sans-serif; font-weight: 900; font-size: 40px; letter-spacing: 8px; }
+                                .logo-number { font-family: 'Arial', sans-serif; font-weight: 900; font-size: 40px; letter-spacing: 2px; }
+                                /* Light mode: black text */
+                                .light-mode .logo-nexa { fill: black; }
+                                .light-mode .logo-number { fill: rgb(106, 121, 250); }
+                                /* Dark mode: white text */
+                                .dark-mode .logo-nexa { fill: white; }
+                                .dark-mode .logo-number { fill: rgb(106, 121, 250); }
+                            </style>
+                        </defs>
+                        <!-- Light mode text -->
+                        <text x="5" y="55" class="logo-nexa light-mode">N E X A</text>
+                        <text x="220" y="55" class="logo-number light-mode">1337</text>
+                        <!-- Dark mode text -->
+                        <text x="5" y="55" class="logo-nexa dark-mode">N E X A</text>
+                        <text x="220" y="55" class="logo-number dark-mode">1337</text>
+                    </svg>
+                    <span class="logo-text" style="display: none;">NEXA Print</span>
                 </div>
             </div>
             
@@ -39,10 +68,11 @@
             
             <div class="header-right" id="headerRight">
                 <!-- Added navbar links: Home, Products, About, Contact -->
-                <a href="#home" class="nav-link" aria-label="Home">Home</a>
-                <a href="#products" class="nav-link" aria-label="View all products">Products</a>
-                <a href="#about" class="nav-link" aria-label="About us">About</a>
-                <a href="#contact" class="nav-link" aria-label="Contact us">Contact</a>
+                <a href="#home" class="nav-link" aria-label="Home"><i class="fas fa-home"></i> Home</a>
+                <a href="#products" class="nav-link" aria-label="View all products"><i class="fas fa-box"></i> Products</a>
+                <a href="#about" class="nav-link" aria-label="About us"><i class="fas fa-info-circle"></i> About</a>
+                <a href="#contact" class="nav-link" aria-label="Contact us"><i class="fas fa-envelope"></i> Contact</a>
+                <a href="designer.html" class="nav-link" aria-label="Product Designer"><i class="fas fa-palette"></i> Designer</a>
                 
                 <!-- Moved theme toggle to the right side -->
                 <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
@@ -62,12 +92,12 @@
                 </select>
                 
                 <button id="cartBtn" class="cart-btn" aria-label="Shopping cart">
-                    <span class="cart-icon">🛒</span>
+                    <i class="fas fa-shopping-cart"></i>
                     <span id="cartCount" class="cart-count">0</span>
                 </button>
                 
                 <button id="logoUploadBtn" class="logo-upload-btn" aria-label="Upload custom logo">
-                    <span>📤</span>
+                    <i class="fas fa-cloud-upload-alt"></i>
                 </button>
             </div>
         </div>
@@ -82,12 +112,14 @@
             >
             <select id="categoryFilter" class="category-filter" aria-label="Filter by category">
                 <option value="all">All Categories</option>
-                <option value="apparel">Apparel</option>
-                <option value="drinkware">Drinkware</option>
+                <option value="mens-clothing">Men's Clothing</option>
+                <option value="womens-clothing">Women's Clothing</option>
+                <option value="kids-clothing">Kids' & Youth Clothing</option>
+                <option value="hats">Hats</option>
                 <option value="accessories">Accessories</option>
-                <option value="bags">Bags</option>
-                <option value="tech">Tech</option>
-                <option value="stickers">Stickers</option>
+                <option value="home-living">Home & Living</option>
+                <option value="collections">Collections</option>
+                <option value="brands">Brands</option>
             </select>
         </div>
     </header>
@@ -100,7 +132,7 @@
                 <div class="hero-text">
                     <h1 class="hero-main-title">Create Your Perfect Print</h1>
                     <p class="hero-subtitle">Premium print-on-demand products with unlimited customization possibilities</p>
-                    <button class="hero-cta-btn" onclick="document.getElementById('products').scrollIntoView({behavior: 'smooth'})">Explore Products</button>
+                    <button class="hero-cta-btn" onclick="document.getElementById('products').scrollIntoView({behavior: 'smooth'})"><i class="fas fa-arrow-right"></i> Explore Products</button>
                 </div>
                 <div class="hero-visual">
                     <div class="hero-shape hero-shape-1"></div>
@@ -118,28 +150,86 @@
                 
                 <div class="category-showcase">
                     <div class="category-item">
-                        <div class="category-icon">📦</div>
+                        <div class="category-icon"><i class="fas fa-box"></i></div>
                         <p>Packaging</p>
                     </div>
                     <div class="category-item">
-                        <div class="category-icon">🏠</div>
+                        <div class="category-icon"><i class="fas fa-home"></i></div>
                         <p>Home & Living</p>
                     </div>
                     <div class="category-item">
-                        <div class="category-icon">💍</div>
+                        <div class="category-icon"><i class="fas fa-ring"></i></div>
                         <p>Jewelry</p>
                     </div>
                     <div class="category-item">
-                        <div class="category-icon">💼</div>
+                        <div class="category-icon"><i class="fas fa-id-card"></i></div>
                         <p>Business Cards</p>
                     </div>
                     <div class="category-item">
-                        <div class="category-icon">📚</div>
+                        <div class="category-icon"><i class="fas fa-book"></i></div>
                         <p>Booklets</p>
                     </div>
                     <div class="category-item">
-                        <div class="category-icon">👕</div>
+                        <div class="category-icon"><i class="fas fa-shirt"></i></div>
                         <p>Clothing & Bags</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Added benefits bar section -->
+        <section class="benefits-bar">
+            <div class="benefits-container">
+                <div class="benefit-item">
+                    <i class="fas fa-truck benefit-icon"></i>
+                    <span>Free delivery worldwide</span>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-undo benefit-icon"></i>
+                    <span>30 day online returns</span>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-headset benefit-icon"></i>
+                    <span>Top-notch support</span>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-tag benefit-icon"></i>
+                    <span>Low price guarantee</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Added how-it-works section -->
+        <section class="how-it-works">
+            <div class="how-it-works-container">
+                <div class="how-it-works-header">
+                    <h2 class="how-it-works-title">How you can fulfill your <span class="highlight">ideas with NEXA</span></h2>
+                    <p class="how-it-works-subtitle">Ideal for creators and online businesses who hate complexity but want results.</p>
+                </div>
+
+                <div class="how-it-works-grid">
+                    <div class="how-it-works-card">
+                        <div class="card-image" style="background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%);">
+                            <i class="fas fa-cube" style="font-size: 3rem; color: white;"></i>
+                        </div>
+                        <h3 class="card-title">Pick your product</h3>
+                        <p class="card-description">From t-shirts to totes, select from our large range of high-quality clothing and accessories to print your design on.</p>
+                    </div>
+
+                    <div class="how-it-works-card">
+                        <div class="card-image" style="background: linear-gradient(135deg, #27ae60 0%, #229954 100%);">
+                            <i class="fas fa-paint-brush" style="font-size: 3rem; color: white;"></i>
+                        </div>
+                        <h3 class="card-title">Create your design</h3>
+                        <p class="card-description">Our free online design tool makes creating simple. Choose from hundreds of fonts, premade designs, upload your or import photos.</p>
+                    </div>
+
+                    <div class="how-it-works-card">
+                        <div class="card-image" style="background: linear-gradient(135deg, #16a085 0%, #138d75 100%);">
+                            <i class="fas fa-check-circle" style="font-size: 3rem; color: white;"></i>
+                        </div>
+                        <h3 class="card-title">Leave the rest to us</h3>
+                        <p class="card-description">Once your masterpiece is complete, simply place your order. Your expertly printed item will arrive so quickly you'll wonder how we do it.</p>
                     </div>
                 </div>
             </div>
@@ -163,6 +253,126 @@
                 <!-- Products will be loaded here -->
             </div>
         </section>
+
+        <!-- Added About Section -->
+        <section class="about-section" id="about" aria-label="About NEXA">
+            <div class="about-container">
+                <div class="about-header">
+                    <h2 class="about-title">About NEXA Print</h2>
+                    <p class="about-subtitle">Empowering creativity through premium print-on-demand solutions</p>
+                </div>
+
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3><i class="fas fa-lightbulb"></i> Our Mission</h3>
+                        <p>At NEXA Print, we believe that everyone deserves the ability to bring their creative ideas to life. We provide premium print-on-demand services that combine cutting-edge technology with exceptional customer service.</p>
+                        
+                        <h3><i class="fas fa-star"></i> Why Choose Us</h3>
+                        <ul class="about-list">
+                            <li><i class="fas fa-check-circle"></i> Premium quality products</li>
+                            <li><i class="fas fa-check-circle"></i> Fast and reliable shipping</li>
+                            <li><i class="fas fa-check-circle"></i> 24/7 customer support</li>
+                            <li><i class="fas fa-check-circle"></i> Competitive pricing</li>
+                            <li><i class="fas fa-check-circle"></i> Eco-friendly options</li>
+                        </ul>
+                    </div>
+
+                    <div class="about-stats">
+                        <div class="stat-card">
+                            <div class="stat-number">10K+</div>
+                            <div class="stat-label">Happy Customers</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">50K+</div>
+                            <div class="stat-label">Orders Shipped</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">100+</div>
+                            <div class="stat-label">Product Types</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">24/7</div>
+                            <div class="stat-label">Support Available</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Added Contact Section -->
+        <section class="contact-section" id="contact" aria-label="Contact NEXA">
+            <div class="contact-container">
+                <div class="contact-header">
+                    <h2 class="contact-title">Get In Touch</h2>
+                    <p class="contact-subtitle">Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+                </div>
+
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="contact-details">
+                                <h4>Address</h4>
+                                <p>Casablanca, Morocco</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                            <div class="contact-details">
+                                <h4>Phone</h4>
+                                <p><a href="tel:+212723242286">+212 723 242 286</a></p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                            <div class="contact-details">
+                                <h4>Email</h4>
+                                <p><a href="mailto:info@nexaprint.com">info@nexaprint.com</a></p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+                            <div class="contact-details">
+                                <h4>WhatsApp</h4>
+                                <p><a href="https://wa.me/212723242286" target="_blank" rel="noopener noreferrer">Chat with us</a></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="contactName"><i class="fas fa-user"></i> Full Name *</label>
+                            <input type="text" id="contactName" name="name" required placeholder="Your name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contactEmail"><i class="fas fa-envelope"></i> Email *</label>
+                            <input type="email" id="contactEmail" name="email" required placeholder="your@email.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contactPhone"><i class="fas fa-phone"></i> Phone</label>
+                            <input type="tel" id="contactPhone" name="phone" placeholder="+212 XXX XXX XXX">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contactSubject"><i class="fas fa-heading"></i> Subject *</label>
+                            <input type="text" id="contactSubject" name="subject" required placeholder="How can we help?">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contactMessage"><i class="fas fa-comment"></i> Message *</label>
+                            <textarea id="contactMessage" name="message" required placeholder="Your message here..." rows="5"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%;"><i class="fas fa-paper-plane"></i> Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Product Modal -->
@@ -175,8 +385,8 @@
                     <div class="image-carousel">
                         <img id="mainImage" src="/placeholder.svg" alt="Product image" class="main-image">
                         <div class="carousel-controls">
-                            <button id="prevImage" class="carousel-btn" aria-label="Previous image">❮</button>
-                            <button id="nextImage" class="carousel-btn" aria-label="Next image">❯</button>
+                            <button id="prevImage" class="carousel-btn" aria-label="Previous image"><i class="fas fa-chevron-left"></i></button>
+                            <button id="nextImage" class="carousel-btn" aria-label="Next image"><i class="fas fa-chevron-right"></i></button>
                         </div>
                     </div>
                     <div class="image-thumbnails" id="imageThumbnails">
@@ -202,40 +412,40 @@
                     
                     <div class="product-metadata">
                         <div class="metadata-item">
-                            <span class="metadata-label">AVAILABLE:</span>
+                            <span class="metadata-label"><i class="fas fa-check"></i> AVAILABLE:</span>
                             <span id="modalAvailability" class="metadata-value availability-badge">In stock</span>
                         </div>
                         <div class="metadata-item">
-                            <span class="metadata-label">TAGS:</span>
+                            <span class="metadata-label"><i class="fas fa-tags"></i> TAGS:</span>
                             <span id="modalTags" class="metadata-value">Gray, L, M, Pink, Red, White, XL</span>
                         </div>
                         <div class="metadata-item">
-                            <span class="metadata-label">SKU:</span>
+                            <span class="metadata-label"><i class="fas fa-barcode"></i> SKU:</span>
                             <span id="modalSKU" class="metadata-value">E-00025</span>
                         </div>
                         <div class="metadata-item">
-                            <span class="metadata-label">CATEGORY:</span>
+                            <span class="metadata-label"><i class="fas fa-folder"></i> CATEGORY:</span>
                             <span id="modalCategory" class="metadata-value">Bestseller, Fashion</span>
                         </div>
                     </div>
                     
                     <div class="product-options">
                         <div class="option-group">
-                            <label class="option-label">SIZE: <span id="selectedSize">M</span></label>
+                            <label class="option-label"><i class="fas fa-ruler"></i> SIZE: <span id="selectedSize">M</span></label>
                             <div class="size-selector" id="sizeSelector">
                                 <!-- Size buttons will be generated here -->
                             </div>
                         </div>
                         
                         <div class="option-group">
-                            <label class="option-label">COLOR: <span id="selectedColor">BLUE</span></label>
+                            <label class="option-label"><i class="fas fa-palette"></i> COLOR: <span id="selectedColor">BLUE</span></label>
                             <div class="color-selector" id="colorSelector">
                                 <!-- Color swatches will be generated here -->
                             </div>
                         </div>
                         
                         <div class="option-group">
-                            <label for="quantityInput" class="option-label">QUANTITY:</label>
+                            <label for="quantityInput" class="option-label"><i class="fas fa-boxes"></i> QUANTITY:</label>
                             <div class="quantity-picker">
                                 <button id="decreaseQty" class="qty-btn" aria-label="Decrease quantity">−</button>
                                 <input id="quantityInput" type="number" class="qty-input" value="1" min="1" aria-label="Quantity">
@@ -246,43 +456,135 @@
                     
                     <div class="checkout-buttons">
                         <button id="addToCartBtn" class="btn btn-primary" aria-label="Add to cart">
-                            ADD TO BAG
+                            <i class="fas fa-shopping-bag"></i> ADD TO BAG
                         </button>
                         <button id="whatsappCheckoutBtn" class="btn btn-secondary" aria-label="Order via WhatsApp">
-                            BUY IT NOW
+                            <i class="fab fa-whatsapp"></i> BUY IT NOW
                         </button>
-                    </div>
-                    
-                    <div class="modal-actions">
-                        <a href="#share" class="action-link">📤 SHARE</a>
-                        <a href="#question" class="action-link">❓ ASK A QUESTION</a>
-                        <a href="#faq" class="action-link">📋 FAQ</a>
+                        <button id="designNowBtn" class="btn btn-secondary" aria-label="Design product" style="background: #ff6b35; border-color: #ff6b35;">
+                            <i class="fas fa-paint-brush"></i> DESIGN NOW
+                        </button>
                     </div>
                     
                     <div class="modal-benefits">
-                        <h4>THE BENEFITS OF CHOOSING US</h4>
+                        <h4><i class="fas fa-credit-card"></i> THE BENEFITS OF CHOOSING US</h4>
                         <div class="payment-methods">
-                            <span class="payment-icon">💳</span>
-                            <span class="payment-icon">💳</span>
-                            <span class="payment-icon">💳</span>
-                            <span class="payment-icon">💳</span>
-                            <span class="payment-icon">💳</span>
+                            <span class="payment-icon"><i class="fas fa-credit-card"></i></span>
+                            <span class="payment-icon"><i class="fab fa-cc-paypal"></i></span>
+                            <span class="payment-icon"><i class="fab fa-cc-stripe"></i></span>
+                            <span class="payment-icon"><i class="fab fa-cc-visa"></i></span>
+                            <span class="payment-icon"><i class="fab fa-cc-mastercard"></i></span>
                         </div>
                     </div>
                     
                     <div class="shipping-info">
-                        <p>📦 Orders ship within 5 to 10 business days.</p>
-                        <p>🎉 Hoorey! This item ships free to the US</p>
+                        <p><i class="fas fa-box"></i> Orders ship within 5 to 10 business days.</p>
+                        <p><i class="fas fa-gift"></i> Hoorey! This item ships free to the US</p>
+                    </div>
+                    
+                    <div class="product-tabs">
+                        <div class="tabs-header">
+                            <button class="tab-button active" data-tab="description"><i class="fas fa-file-alt"></i> Description</button>
+                            <button class="tab-button" data-tab="additional"><i class="fas fa-info-circle"></i> Additional information</button>
+                        </div>
+                        
+                        <div class="tabs-content">
+                            <div id="description" class="tab-content active">
+                                <h4>Product Details</h4>
+                                <p id="tabDescription"></p>
+                            </div>
+                            
+                            <div id="additional" class="tab-content">
+                                <h4>Additional Information</h4>
+                                <div class="additional-info">
+                                    <div class="info-row">
+                                        <span class="info-label"><i class="fas fa-barcode"></i> SKU:</span>
+                                        <span id="tabSKU" class="info-value"></span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label"><i class="fas fa-folder"></i> Category:</span>
+                                        <span id="tabCategory" class="info-value"></span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label"><i class="fas fa-ruler"></i> Available Sizes:</span>
+                                        <span id="tabSizes" class="info-value"></span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label"><i class="fas fa-palette"></i> Available Colors:</span>
+                                        <span id="tabColors" class="info-value"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Designer Modal -->
+    <div id="designerModal" class="modal" role="dialog" aria-labelledby="designerTitle" aria-hidden="true">
+      <div class="modal-content designer-modal">
+        <button class="modal-close" aria-label="Close designer">&times;</button>
+        
+        <div class="designer-container">
+          <div class="designer-toolbar">
+            <div class="toolbar-section">
+              <h3><i class="fas fa-tools"></i> Design Tools</h3>
+              <button id="addTextBtn" class="tool-btn" title="Add text">
+                <i class="fas fa-font"></i> Text
+              </button>
+              <button id="addShapeBtn" class="tool-btn" title="Add shape">
+                <i class="fas fa-square"></i> Shape
+              </button>
+              <button id="addImageBtn" class="tool-btn" title="Add image">
+                <i class="fas fa-image"></i> Image
+              </button>
+              <button id="colorPickerBtn" class="tool-btn" title="Change color">
+                <i class="fas fa-palette"></i> Color
+              </button>
+              <input type="color" id="colorInput" style="display: none;">
+            </div>
+            
+            <div class="toolbar-section">
+              <h3><i class="fas fa-cogs"></i> Actions</h3>
+              <button id="undoBtn" class="tool-btn" title="Undo"><i class="fas fa-undo"></i> Undo</button>
+              <button id="redoBtn" class="tool-btn" title="Redo"><i class="fas fa-redo"></i> Redo</button>
+              <button id="clearBtn" class="tool-btn" title="Clear canvas"><i class="fas fa-trash"></i> Clear</button>
+            </div>
+            
+            <div class="toolbar-section">
+              <h3><i class="fas fa-download"></i> Export</h3>
+              <button id="downloadDesignBtn" class="tool-btn btn-primary" title="Download design">
+                <i class="fas fa-download"></i> Download
+              </button>
+              <button id="addToCartDesignBtn" class="tool-btn btn-primary" title="Add to cart">
+                <i class="fas fa-shopping-cart"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+          
+          <div class="designer-canvas-wrapper">
+            <canvas id="designCanvas" width="600" height="600"></canvas>
+            <div class="canvas-info">
+              <p><i class="fas fa-info-circle"></i> Click to add text, drag to move, right-click to delete</p>
+            </div>
+          </div>
+          
+          <div class="designer-preview">
+            <h3><i class="fas fa-eye"></i> Product Preview</h3>
+            <div class="preview-container">
+              <img id="previewProduct" src="/placeholder.svg" alt="Product preview" class="preview-image">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Cart Sidebar -->
     <div id="cartSidebar" class="cart-sidebar" role="complementary" aria-label="Shopping cart" aria-hidden="true">
         <div class="cart-header">
-            <h2>Shopping Cart</h2>
+            <h2><i class="fas fa-shopping-cart"></i> Shopping Cart</h2>
             <button id="closeCartBtn" class="close-btn" aria-label="Close cart">&times;</button>
         </div>
         
@@ -292,11 +594,11 @@
         
         <div class="cart-footer">
             <div class="cart-total">
-                <span>Total:</span>
+                <span><i class="fas fa-calculator"></i> Total:</span>
                 <span id="cartTotal">0</span>
             </div>
             <button id="checkoutBtn" class="btn btn-primary" style="width: 100%;">
-                Proceed to Checkout
+                <i class="fas fa-credit-card"></i> Proceed to Checkout
             </button>
         </div>
     </div>
@@ -306,12 +608,12 @@
         <div class="modal-content modal-small">
             <button class="modal-close" aria-label="Close modal">&times;</button>
             
-            <h2 id="logoUploadTitle" class="modal-title">Upload Custom Logo</h2>
+            <h2 id="logoUploadTitle" class="modal-title"><i class="fas fa-cloud-upload-alt"></i> Upload Custom Logo</h2>
             
             <div class="logo-upload-form">
                 <div class="upload-area" id="uploadArea">
                     <input type="file" id="logoFile" accept="image/*" aria-label="Choose logo file">
-                    <p>Drag and drop your logo here or click to select</p>
+                    <p><i class="fas fa-cloud-upload-alt"></i> Drag and drop your logo here or click to select</p>
                     <p class="upload-specs">Recommended: PNG/SVG, 500x500px, transparent background</p>
                 </div>
                 
@@ -320,7 +622,7 @@
                 </div>
                 
                 <button id="uploadLogoBtn" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
-                    Use This Logo
+                    <i class="fas fa-check"></i> Use This Logo
                 </button>
             </div>
         </div>
@@ -335,74 +637,61 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h4>N E X A <span style="color:#6a79fa;">1337</span></h4>
+                    <h4><i class="fas fa-star"></i> N E X A <span style="color:#6a79fa;">1337</span></h4>
                     <p>Empowering digital growth through creativity, technology, and smart strategy.</p>
                 </div>
                 <div class="footer-section">
-                    <h4>Menu</h4>
+                    <h4><i class="fas fa-bars"></i> Menu</h4>
                     <ul>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#about"><i class="fas fa-arrow-right"></i> About</a></li>
+                        <li><a href="#services"><i class="fas fa-arrow-right"></i> Services</a></li>
+                        <li><a href="#pricing"><i class="fas fa-arrow-right"></i> Pricing</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h4>About Us</h4>
+                    <h4><i class="fas fa-users"></i> About Us</h4>
                     <ul>
-                        <li><a href="#">Our Story</a></li>
-                        <li><a href="#">Team</a></li>
-                        <li><a href="#">Careers</a></li>
+                        <li><a href="#"><i class="fas fa-arrow-right"></i> Our Story</a></li>
+                        <li><a href="#"><i class="fas fa-arrow-right"></i> Team</a></li>
+                        <li><a href="#"><i class="fas fa-arrow-right"></i> Careers</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h4>Quick Links</h4>
+                    <h4><i class="fas fa-link"></i> Quick Links</h4>
                     <ul>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Support</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="#"><i class="fas fa-arrow-right"></i> Blog</a></li>
+                        <li><a href="#"><i class="fas fa-arrow-right"></i> Support</a></li>
+                        <li><a href="#"><i class="fas fa-arrow-right"></i> Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h4>Download App</h4>
+                    <h4><i class="fas fa-download"></i> Download App</h4>
                     <div class="app-download-links">
                         <a href="https://play.google.com/store" target="_blank" rel="noopener noreferrer" class="app-store-link" aria-label="Download on Google Play">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M3 3h18v18H3z"/>
-                                <path d="M12 3v18M3 12h18"/>
-                            </svg>
+                            <i class="fab fa-google-play"></i>
                             <span>Google Play</span>
                         </a>
                         <a href="https://apps.apple.com" target="_blank" rel="noopener noreferrer" class="app-store-link" aria-label="Download on App Store">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-6M6 9l6-7 6 7"/>
-                            </svg>
+                            <i class="fab fa-app-store"></i>
                             <span>App Store</span>
                         </a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2025 NEXA1337 – All rights reserved.</p>
+                <p><i class="fas fa-copyright"></i> 2025 NEXA1337 – All rights reserved.</p>
                 <div class="social-links">
                     <a href="https://www.linkedin.com/in/nexa1337" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="social-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                        </svg>
+                        <i class="fab fa-linkedin"></i>
                     </a>
                     <a href="https://instagram.com/nexa1337" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="social-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1 1 12.324 0 6.162 6.162 0 0 1-12.324 0zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm4.965-10.322a1.44 1.44 0 1 1 2.881.001 1.44 1.44 0 0 1-2.881-.001z"/>
-                        </svg>
+                        <i class="fab fa-instagram"></i>
                     </a>
                     <a href="https://tiktok.com/@nexa.1337" target="_blank" rel="noopener noreferrer" aria-label="TikTok" class="social-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.68v13.67a2.4 2.4 0 1 1-4.77-1.58A2.4 2.4 0 0 1 9.1 13.66V9.58a6.47 6.47 0 0 0-6.47 6.47A6.47 6.47 0 0 0 9.1 22.52a6.47 6.47 0 0 0 6.47-6.47v-3.36a8.7 8.7 0 0 0 3.02 1.01v-3.66a4.5 4.5 0 0 1-.4-.04z"/>
-                        </svg>
+                        <i class="fab fa-tiktok"></i>
                     </a>
                     <a href="https://api.whatsapp.com/send?phone=212723242286" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="social-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-4.782 1.176l-.013 1.39 4.552 2.251 3.635-1.993-.388-2.384a9.9 9.9 0 00-2.99-.44z"/>
-                        </svg>
+                        <i class="fab fa-whatsapp"></i>
                     </a>
                 </div>
             </div>
@@ -1003,6 +1292,8 @@
     <script src="js/i18n.js"></script>
     <script src="js/currency.js"></script>
     <script src="js/utils.js"></script>
+    <script src="js/designer.js"></script>
+    <script src="js/designer-ui.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

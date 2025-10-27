@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NEXA Print - Product Designer">
+    <title>Product Designer - NEXA Print</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Designer Page Professional Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body.designer-page {
+            background: #f0f0f0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        /* Breadcrumb */
+        .designer-breadcrumb {
+            background: white;
+            padding: 12px 20px;
+            font-size: 12px;
+            color: #666;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .designer-breadcrumb a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        /* Main Container */
+        .designer-wrapper {
+            display: flex;
+            height: calc(100vh - 45px);
+            gap: 0;
+        }
+
+        /* Left Sidebar */
+        .designer-sidebar {
+            width: 320px;
+            background: white;
+            border-right: 1px solid #e0e0e0;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .sidebar-header-icon {
+            width: 40px;
+            height: 40px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .sidebar-header-text h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin: 0;
+            color: #333;
+        }
+
+        .sidebar-header-text p {
+            font-size: 12px;
+            color: #999;
+            margin: 2px 0 0 0;
+        }
+
+        .sidebar-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sidebar-section-title {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #333;
+            letter-spacing: 0.5px;
+        }
+
+        /* Color Picker */
+        .color-picker-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .color-swatch {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 4px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .color-swatch:hover {
+            transform: scale(1.08);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+
+        .color-swatch.active {
+            border-color: #0066cc;
+            box-shadow: 0 0 0 3px rgba(0,102,204,0.2);
+        }
+
+        /* Size Selector */
+        .size-selector {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .size-option {
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 13px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .size-option:hover {
+            border-color: #0066cc;
+            background: #f0f7ff;
+        }
+
+        .size-option.active {
+            background: #0066cc;
+            color: white;
+            border-color: #0066cc;
+        }
+
+        /* Delivery & Quantity */
+        .option-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .option-row select,
+        .option-row input {
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 13px;
+            background: white;
+            color: #333;
+        }
+
+        .option-row select:focus,
+        .option-row input:focus {
+            outline: none;
+            border-color: #0066cc;
+            box-shadow: 0 0 0 2px rgba(0,102,204,0.1);
+        }
+
+        /* Price Display */
+        .price-box {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 4px;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+        }
+
+        .price-original {
+            font-size: 12px;
+            color: #999;
+            text-decoration: line-through;
+            margin-bottom: 5px;
+        }
+
+        .price-current {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0066cc;
+        }
+
+        /* Quantity Picker */
+        .quantity-picker {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .qty-btn {
+            width: 36px;
+            height: 36px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+
+        .qty-btn:hover {
+            border-color: #0066cc;
+            background: #f0f7ff;
+        }
+
+        .qty-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .btn-action {
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .btn-save {
+            background: #f0f0f0;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .btn-save:hover {
+            background: #e0e0e0;
+        }
+
+        .btn-cart {
+            background: #0066cc;
+            color: white;
+        }
+
+        .btn-cart:hover {
+            background: #0052a3;
+        }
+
+        /* Main Content Area */
+        .designer-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Toolbar */
+        .designer-toolbar {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 12px 20px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .tool-btn {
+            width: 36px;
+            height: 36px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all 0.2s;
+            font-weight: 600;
+        }
+
+        .tool-btn:hover {
+            background: #f0f0f0;
+            border-color: #0066cc;
+        }
+
+        .tool-btn.active {
+            background: #0066cc;
+            color: white;
+            border-color: #0066cc;
+        }
+
+        .toolbar-divider {
+            width: 1px;
+            height: 24px;
+            background: #e0e0e0;
+            margin: 0 4px;
+        }
+
+        /* Canvas Area */
+        .designer-content {
+            flex: 1;
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .canvas-section {
+            flex: 1;
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: auto;
+        }
+
+        #designCanvas {
+            cursor: crosshair;
+            background: white;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        /* Preview Section */
+        .preview-section {
+            width: 280px;
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            overflow-y: auto;
+        }
+
+        .preview-header {
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .preview-image {
+            width: 100%;
+            height: 280px;
+            object-fit: contain;
+            background: #f9f9f9;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .preview-tabs {
+            display: flex;
+            gap: 10px;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+
+        .preview-tab {
+            font-size: 12px;
+            padding: 6px 12px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: #999;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .preview-tab.active {
+            color: #0066cc;
+            border-bottom-color: #0066cc;
+        }
+
+        .preview-zoom {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .zoom-btn {
+            width: 28px;
+            height: 28px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .zoom-btn:hover {
+            border-color: #0066cc;
+            background: #f0f7ff;
+        }
+
+        /* Responsive */
+        @media (max-width: 1400px) {
+            .designer-sidebar {
+                width: 280px;
+            }
+            .preview-section {
+                width: 240px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .designer-wrapper {
+                flex-direction: column;
+            }
+            .designer-sidebar {
+                width: 100%;
+                max-height: 180px;
+                border-right: none;
+                border-bottom: 1px solid #e0e0e0;
+                flex-direction: row;
+                overflow-x: auto;
+                overflow-y: hidden;
+                gap: 30px;
+            }
+            .sidebar-section {
+                min-width: 150px;
+            }
+            .preview-section {
+                display: none;
+            }
+            .designer-content {
+                gap: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .designer-toolbar {
+                overflow-x: auto;
+            }
+            .designer-content {
+                padding: 10px;
+            }
+        }
+
+        /* Hidden inputs */
+        #imageInput,
+        #colorInput {
+            display: none;
+        }
+    </style>
+</head>
+<body class="designer-page">
+    <!-- Breadcrumb -->
+    <div class="designer-breadcrumb">
+        <a href="index.html">Home Page</a> > <span>Designer</span>
+    </div>
+
+    <!-- Main Wrapper -->
+    <div class="designer-wrapper">
+        <!-- Left Sidebar -->
+        <div class="designer-sidebar">
+            <!-- Product Header -->
+            <div class="sidebar-header">
+                <div class="sidebar-header-icon">📦</div>
+                <div class="sidebar-header-text">
+                    <h3 id="productName">Product</h3>
+                    <p id="productCategory">Category</p>
+                </div>
+            </div>
+
+            <!-- Product Color -->
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Product Color</div>
+                <div class="color-picker-grid" id="colorGrid">
+                    <!-- Colors populated by JS -->
+                </div>
+            </div>
+
+            <!-- Size -->
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Size</div>
+                <div class="size-selector" id="sizeSelector">
+                    <!-- Sizes populated by JS -->
+                </div>
+            </div>
+
+            <!-- Delivery Term -->
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Delivery Term</div>
+                <div class="option-row">
+                    <select id="deliverySelect">
+                        <option>24 hours</option>
+                        <option>48 hours</option>
+                        <option>3-5 days</option>
+                        <option>5-7 days</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Quantity -->
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Quantity</div>
+                <div class="quantity-picker">
+                    <button class="qty-btn" id="qtyMinus">−</button>
+                    <input type="number" class="qty-input" id="qtyInput" value="1" min="1">
+                    <button class="qty-btn" id="qtyPlus">+</button>
+                </div>
+            </div>
+
+            <!-- Price -->
+            <div class="sidebar-section">
+                <div class="price-box">
+                    <div class="price-original" id="originalPrice"></div>
+                    <div class="price-current" id="currentPrice">$0.00</div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn-action btn-save" id="btnSave">💾 SAVE</button>
+                <button class="btn-action btn-cart" id="btnAddCart">🛒 ADD TO CART</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="designer-main">
+            <!-- Toolbar -->
+            <div class="designer-toolbar">
+                <button class="tool-btn" id="toolInfo" title="Info">ℹ</button>
+                <button class="tool-btn" id="toolGrid" title="Grid">⊞</button>
+                <button class="tool-btn" id="toolPen" title="Pen">✏</button>
+                <button class="tool-btn" id="toolText" title="Text">T</button>
+                <button class="tool-btn" id="toolShape" title="Shape">◻</button>
+                <button class="tool-btn" id="toolImage" title="Image">🖼</button>
+                <button class="tool-btn" id="toolColor" title="Color">🎨</button>
+                <button class="tool-btn" id="toolErase" title="Erase">⌫</button>
+                <button class="tool-btn" id="toolLock" title="Lock">🔒</button>
+                <button class="tool-btn" id="toolUndo" title="Undo">↶</button>
+                <button class="tool-btn" id="toolRedo" title="Redo">↷</button>
+                <button class="tool-btn" id="toolClear" title="Clear">🗑</button>
+                <div style="flex: 1;"></div>
+                <button class="tool-btn" id="toolEye" title="View">👁</button>
+            </div>
+
+            <!-- Canvas & Preview -->
+            <div class="designer-content">
+                <!-- Canvas -->
+                <div class="canvas-section">
+                    <canvas id="designCanvas" width="600" height="600"></canvas>
+                </div>
+
+                <!-- Preview -->
+                <div class="preview-section">
+                    <div class="preview-header">Product Preview</div>
+                    <img id="previewImage" src="/placeholder.svg" alt="Product preview" class="preview-image">
+                    
+                    <div class="preview-tabs">
+                        <button class="preview-tab active">Front</button>
+                        <button class="preview-tab">Back</button>
+                    </div>
+
+                    <div class="preview-zoom">
+                        <button class="zoom-btn">−</button>
+                        <span id="zoomLevel">100%</span>
+                        <button class="zoom-btn">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden Inputs -->
+    <input type="file" id="imageInput" accept="image/*">
+    <input type="color" id="colorInput" value="#000000">
+
+    <!-- Scripts -->
+    <script>
+        // Get product data from embedded data
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = parseInt(urlParams.get('product_id')) || 1;
+        const product = window.PRODUCTS_DATA.find(p => p.id === productId);
+
+        if (!product) {
+            document.body.innerHTML = '<div style="padding: 20px; text-align: center;"><h2>Product not found</h2><a href="index.html">Back to Store</a></div>';
+        } else {
+            initializeDesigner(product);
+        }
+
+        function initializeDesigner(product) {
+            console.log("[v0] Initializing designer for product:", product.name);
+
+            // Set product info
+            document.getElementById('productName').textContent = product.name;
+            document.getElementById('productCategory').textContent = product.category || 'General';
+            document.getElementById('previewImage').src = product.images[0] || '/placeholder.svg';
+
+            // Set price
+            const price = (product.price / 100).toFixed(2);
+            const originalPrice = product.originalPrice ? (product.originalPrice / 100).toFixed(2) : null;
+            document.getElementById('currentPrice').textContent = `$${price}`;
+            if (originalPrice) {
+                document.getElementById('originalPrice').textContent = `$${originalPrice}`;
+            }
+
+            // Canvas setup
+            const canvas = document.getElementById('designCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Draw canvas background
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = '#ddd';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(0, 0, canvas.width, canvas.height);
+
+            // Canvas state for undo/redo
+            let canvasHistory = [canvas.toDataURL()];
+            let historyStep = 0;
+            let currentTool = 'pen';
+            let currentColor = '#000000';
+            let isDrawing = false;
+            let lastX = 0;
+            let lastY = 0;
+
+            // Populate colors
+            const colorGrid = document.getElementById('colorGrid');
+            const colorMap = {
+                'Black': '#000000', 'White': '#FFFFFF', 'Navy': '#001f3f', 'Red': '#FF4136',
+                'Gray': '#AAAAAA', 'Blue': '#0074D9', 'Cream': '#FFFDD0', 'Charcoal': '#36454F',
+                'Brown': '#8B4513', 'Tan': '#D2B48C', 'Dark Brown': '#654321', 'Silver': '#C0C0C0',
+                'Natural': '#F5DEB3', 'Clear': '#E8F4F8'
+            };
+
+            product.colors.forEach((colorName, index) => {
+                const colorDiv = document.createElement('div');
+                colorDiv.className = 'color-swatch';
+                if (index === 0) colorDiv.classList.add('active');
+                colorDiv.style.backgroundColor = colorMap[colorName] || '#ccc';
+                colorDiv.title = colorName;
+                colorDiv.onclick = () => {
+                    document.querySelectorAll('.color-swatch').forEach(c => c.classList.remove('active'));
+                    colorDiv.classList.add('active');
+                };
+                colorGrid.appendChild(colorDiv);
+            });
+
+            // Populate sizes
+            const sizeSelector = document.getElementById('sizeSelector');
+            product.sizes.forEach((sizeOption, index) => {
+                const sizeBtn = document.createElement('button');
+                sizeBtn.className = 'size-option';
+                if (index === 0) sizeBtn.classList.add('active');
+                sizeBtn.textContent = sizeOption;
+                sizeBtn.onclick = () => {
+                    document.querySelectorAll('.size-option').forEach(s => s.classList.remove('active'));
+                    sizeBtn.classList.add('active');
+                };
+                sizeSelector.appendChild(sizeBtn);
+            });
+
+            // Quantity controls
+            document.getElementById('qtyMinus').onclick = () => {
+                const input = document.getElementById('qtyInput');
+                if (input.value > 1) input.value--;
+            };
+
+            document.getElementById('qtyPlus').onclick = () => {
+                document.getElementById('qtyInput').value++;
+            };
+
+            // Canvas drawing functionality
+            canvas.addEventListener('mousedown', (e) => {
+                isDrawing = true;
+                const rect = canvas.getBoundingClientRect();
+                lastX = e.clientX - rect.left;
+                lastY = e.clientY - rect.top;
+            });
+
+            canvas.addEventListener('mousemove', (e) => {
+                if (!isDrawing) return;
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                if (currentTool === 'pen') {
+                    ctx.strokeStyle = currentColor;
+                    ctx.lineWidth = 2;
+                    ctx.lineCap = 'round';
+                    ctx.lineJoin = 'round';
+                    ctx.beginPath();
+                    ctx.moveTo(lastX, lastY);
+                    ctx.lineTo(x, y);
+                    ctx.stroke();
+                }
+
+                lastX = x;
+                lastY = y;
+            });
+
+            canvas.addEventListener('mouseup', () => {
+                isDrawing = false;
+                saveCanvasState();
+            });
+
+            canvas.addEventListener('mouseleave', () => {
+                isDrawing = false;
+            });
+
+            // Tool: Add Text
+            document.getElementById('toolText').onclick = () => {
+                const text = prompt('Enter text:');
+                if (text) {
+                    ctx.font = 'bold 24px Arial';
+                    ctx.fillStyle = currentColor;
+                    ctx.fillText(text, 50, 100);
+                    saveCanvasState();
+                }
+            };
+
+            // Tool: Add Shape
+            document.getElementById('toolShape').onclick = () => {
+                ctx.fillStyle = currentColor;
+                ctx.fillRect(100, 100, 150, 150);
+                saveCanvasState();
+            };
+
+            // Tool: Add Image (Logo Upload)
+            document.getElementById('toolImage').onclick = () => {
+                document.getElementById('imageInput').click();
+            };
+
+            document.getElementById('imageInput').onchange = (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        const img = new Image();
+                        img.crossOrigin = "anonymous";
+                        img.onload = () => {
+                            ctx.drawImage(img, 50, 150, 200, 200);
+                            saveCanvasState();
+                            console.log("[v0] Logo uploaded and added to canvas");
+                        };
+                        img.onerror = () => {
+                            alert('Failed to load image');
+                        };
+                        img.src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+
+            // Tool: Color
+            document.getElementById('toolColor').onclick = () => {
+                document.getElementById('colorInput').click();
+            };
+
+            document.getElementById('colorInput').onchange = (e) => {
+                currentColor = e.target.value;
+                ctx.fillStyle = currentColor;
+                ctx.strokeStyle = currentColor;
+            };
+
+            // Tool: Pen
+            document.getElementById('toolPen').onclick = () => {
+                currentTool = 'pen';
+                document.querySelectorAll('.tool-btn').forEach(btn => btn.classList.remove('active'));
+                document.getElementById('toolPen').classList.add('active');
+            };
+
+            // Tool: Undo
+            document.getElementById('toolUndo').onclick = () => {
+                if (historyStep > 0) {
+                    historyStep--;
+                    const imageData = new Image();
+                    imageData.src = canvasHistory[historyStep];
+                    imageData.onload = () => {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        ctx.drawImage(imageData, 0, 0);
+                    };
+                }
+            };
+
+            // Tool: Redo
+            document.getElementById('toolRedo').onclick = () => {
+                if (historyStep < canvasHistory.length - 1) {
+                    historyStep++;
+                    const imageData = new Image();
+                    imageData.src = canvasHistory[historyStep];
+                    imageData.onload = () => {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        ctx.drawImage(imageData, 0, 0);
+                    };
+                }
+            };
+
+            // Tool: Clear
+            document.getElementById('toolClear').onclick = () => {
+                if (confirm('Clear the entire canvas?')) {
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.strokeStyle = '#ddd';
+                    ctx.strokeRect(0, 0, canvas.width, canvas.height);
+                    saveCanvasState();
+                }
+            };
+
+            // Save design
+            document.getElementById('btnSave').onclick = () => {
+                const design = {
+                    productId: product.id,
+                    productName: product.name,
+                    canvas: canvas.toDataURL(),
+                    timestamp: new Date().toISOString()
+                };
+                localStorage.setItem(`design_${product.id}`, JSON.stringify(design));
+                alert('✅ Design saved successfully!');
+                console.log("[v0] Design saved to localStorage");
+            };
+
+            // Add to cart
+            document.getElementById('btnAddCart').onclick = () => {
+                const selectedSize = document.querySelector('.size-option.active')?.textContent || 'Default';
+                const selectedColor = document.querySelector('.color-swatch.active')?.title || 'Default';
+                const quantity = parseInt(document.getElementById('qtyInput').value) || 1;
+
+                const cartItem = {
+                    id: product.id,
+                    name: product.name,
+                    size: selectedSize,
+                    color: selectedColor,
+                    quantity: quantity,
+                    price: product.price,
+                    image: product.images[0],
+                    design: canvas.toDataURL()
+                };
+
+                // Save to localStorage
+                let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                cart.push(cartItem);
+                localStorage.setItem('cart', JSON.stringify(cart));
+
+                console.log("[v0] Design added to cart:", cartItem);
+                alert('✅ Design added to cart! Redirecting to store...');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+            };
+
+            // Save canvas state for undo/redo
+            function saveCanvasState() {
+                canvasHistory = canvasHistory.slice(0, historyStep + 1);
+                canvasHistory.push(canvas.toDataURL());
+                historyStep = canvasHistory.length - 1;
+            }
+
+            console.log("[v0] Designer initialized successfully for:", product.name);
+        }
+    </script>
+</body>
+</html>
