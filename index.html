@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NEXA Print - Premium Print-on-Demand Storefront. Custom apparel, mugs, and more with fast shipping.">
+    <meta name="keywords" content="print on demand, custom apparel, merchandise, printing">
+    <meta name="theme-color" content="#1a1a1a">
+    <meta property="og:title" content="NEXA Print - Premium Print-on-Demand">
+    <meta property="og:description" content="Create custom merchandise with NEXA Print">
+    <meta property="og:type" content="website">
+    
+    <title>NEXA Print - Premium Print-on-Demand Storefront</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' font-weight='bold' fill='%231a1a1a'>N</text></svg>">
+</head>
+<body>
+    <!-- Date/Time Bar -->
+    <div class="date-time-bar">
+        <span id="liveDate" class="live-date"></span>
+        <span id="liveTime" class="live-time"></span>
+    </div>
+
+    <!-- Header -->
+    <header class="header" role="banner">
+        <div class="header-top">
+            <div class="header-left">
+                <div class="logo">
+                    <img id="logoImg" src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' font-weight='bold' fill='%231a1a1a'>N</text></svg>" alt="NEXA Print Logo" class="logo-img">
+                    <span class="logo-text">NEXA Print</span>
+                </div>
+            </div>
+            
+            <button id="mobileMenuToggle" class="mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <div class="header-right" id="headerRight">
+                <!-- Added navbar links: Home, Products, About, Contact -->
+                <a href="#home" class="nav-link" aria-label="Home">Home</a>
+                <a href="#products" class="nav-link" aria-label="View all products">Products</a>
+                <a href="#about" class="nav-link" aria-label="About us">About</a>
+                <a href="#contact" class="nav-link" aria-label="Contact us">Contact</a>
+                
+                <!-- Moved theme toggle to the right side -->
+                <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                
+                <select id="languageSelect" class="language-select" aria-label="Select language">
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                    <option value="ar">العربية</option>
+                </select>
+                
+                <select id="currencySelect" class="currency-select" aria-label="Select currency">
+                    <option value="MAD">MAD (د.م.)</option>
+                    <option value="USD">USD ($)</option>
+                    <option value="EUR">EUR (€)</option>
+                </select>
+                
+                <button id="cartBtn" class="cart-btn" aria-label="Shopping cart">
+                    <span class="cart-icon">🛒</span>
+                    <span id="cartCount" class="cart-count">0</span>
+                </button>
+                
+                <button id="logoUploadBtn" class="logo-upload-btn" aria-label="Upload custom logo">
+                    <span>📤</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="header-search">
+            <input 
+                type="text" 
+                id="searchInput" 
+                class="search-input" 
+                placeholder="Search products..."
+                aria-label="Search products"
+            >
+            <select id="categoryFilter" class="category-filter" aria-label="Filter by category">
+                <option value="all">All Categories</option>
+                <option value="apparel">Apparel</option>
+                <option value="drinkware">Drinkware</option>
+                <option value="accessories">Accessories</option>
+                <option value="bags">Bags</option>
+                <option value="tech">Tech</option>
+                <option value="stickers">Stickers</option>
+            </select>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content" role="main">
+        <!-- Added modern minimalist hero section -->
+        <section class="hero-section-new" aria-label="Hero section">
+            <div class="hero-container">
+                <div class="hero-text">
+                    <h1 class="hero-main-title">Create Your Perfect Print</h1>
+                    <p class="hero-subtitle">Premium print-on-demand products with unlimited customization possibilities</p>
+                    <button class="hero-cta-btn" onclick="document.getElementById('products').scrollIntoView({behavior: 'smooth'})">Explore Products</button>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-shape hero-shape-1"></div>
+                    <div class="hero-shape hero-shape-2"></div>
+                    <div class="hero-shape hero-shape-3"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Added hero section with category showcase -->
+        <section class="hero-section" aria-label="Featured categories">
+            <div class="hero-content">
+                <div class="hero-badge">PRINT WITH NEXA</div>
+                <h1 class="hero-title">Popular Brand Design & Print Products</h1>
+                
+                <div class="category-showcase">
+                    <div class="category-item">
+                        <div class="category-icon">📦</div>
+                        <p>Packaging</p>
+                    </div>
+                    <div class="category-item">
+                        <div class="category-icon">🏠</div>
+                        <p>Home & Living</p>
+                    </div>
+                    <div class="category-item">
+                        <div class="category-icon">💍</div>
+                        <p>Jewelry</p>
+                    </div>
+                    <div class="category-item">
+                        <div class="category-icon">💼</div>
+                        <p>Business Cards</p>
+                    </div>
+                    <div class="category-item">
+                        <div class="category-icon">📚</div>
+                        <p>Booklets</p>
+                    </div>
+                    <div class="category-item">
+                        <div class="category-icon">👕</div>
+                        <p>Clothing & Bags</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Added featured products section -->
+        <section class="featured-section" id="products" aria-label="Featured products">
+            <div class="featured-header">
+                <div class="featured-badge">WHAT'S HOT, RIGHT NOW!</div>
+                <h2 class="featured-title">Personalized Products For Your Favorite People</h2>
+            </div>
+
+            <div class="featured-tabs">
+                <button class="tab-btn active" data-category="all">All Products</button>
+                <button class="tab-btn" data-category="apparel">Clothing & Bags</button>
+                <button class="tab-btn" data-category="drinkware">Drinkware</button>
+                <button class="tab-btn" data-category="accessories">Accessories</button>
+            </div>
+
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be loaded here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Product Modal -->
+    <div id="productModal" class="modal" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Close modal">&times;</button>
+            
+            <div class="modal-body">
+                <div class="modal-images">
+                    <div class="image-carousel">
+                        <img id="mainImage" src="/placeholder.svg" alt="Product image" class="main-image">
+                        <div class="carousel-controls">
+                            <button id="prevImage" class="carousel-btn" aria-label="Previous image">❮</button>
+                            <button id="nextImage" class="carousel-btn" aria-label="Next image">❯</button>
+                        </div>
+                    </div>
+                    <div class="image-thumbnails" id="imageThumbnails">
+                        <!-- Thumbnails will be generated here -->
+                    </div>
+                </div>
+                
+                <div class="modal-details">
+                    <div class="modal-header">
+                        <h2 id="modalTitle" class="modal-title"></h2>
+                        <div class="modal-rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span class="review-count">(0) <a href="#reviews">VIEW ALL REVIEWS</a></span>
+                        </div>
+                    </div>
+                    
+                    <div class="price-section">
+                        <span id="modalPrice" class="modal-price"></span>
+                        <span id="modalOriginalPrice" class="modal-original-price"></span>
+                    </div>
+                    
+                    <p id="modalDescription" class="modal-description"></p>
+                    
+                    <div class="product-metadata">
+                        <div class="metadata-item">
+                            <span class="metadata-label">AVAILABLE:</span>
+                            <span id="modalAvailability" class="metadata-value availability-badge">In stock</span>
+                        </div>
+                        <div class="metadata-item">
+                            <span class="metadata-label">TAGS:</span>
+                            <span id="modalTags" class="metadata-value">Gray, L, M, Pink, Red, White, XL</span>
+                        </div>
+                        <div class="metadata-item">
+                            <span class="metadata-label">SKU:</span>
+                            <span id="modalSKU" class="metadata-value">E-00025</span>
+                        </div>
+                        <div class="metadata-item">
+                            <span class="metadata-label">CATEGORY:</span>
+                            <span id="modalCategory" class="metadata-value">Bestseller, Fashion</span>
+                        </div>
+                    </div>
+                    
+                    <div class="product-options">
+                        <div class="option-group">
+                            <label class="option-label">SIZE: <span id="selectedSize">M</span></label>
+                            <div class="size-selector" id="sizeSelector">
+                                <!-- Size buttons will be generated here -->
+                            </div>
+                        </div>
+                        
+                        <div class="option-group">
+                            <label class="option-label">COLOR: <span id="selectedColor">BLUE</span></label>
+                            <div class="color-selector" id="colorSelector">
+                                <!-- Color swatches will be generated here -->
+                            </div>
+                        </div>
+                        
+                        <div class="option-group">
+                            <label for="quantityInput" class="option-label">QUANTITY:</label>
+                            <div class="quantity-picker">
+                                <button id="decreaseQty" class="qty-btn" aria-label="Decrease quantity">−</button>
+                                <input id="quantityInput" type="number" class="qty-input" value="1" min="1" aria-label="Quantity">
+                                <button id="increaseQty" class="qty-btn" aria-label="Increase quantity">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="checkout-buttons">
+                        <button id="addToCartBtn" class="btn btn-primary" aria-label="Add to cart">
+                            ADD TO BAG
+                        </button>
+                        <button id="whatsappCheckoutBtn" class="btn btn-secondary" aria-label="Order via WhatsApp">
+                            BUY IT NOW
+                        </button>
+                    </div>
+                    
+                    <div class="modal-actions">
+                        <a href="#share" class="action-link">📤 SHARE</a>
+                        <a href="#question" class="action-link">❓ ASK A QUESTION</a>
+                        <a href="#faq" class="action-link">📋 FAQ</a>
+                    </div>
+                    
+                    <div class="modal-benefits">
+                        <h4>THE BENEFITS OF CHOOSING US</h4>
+                        <div class="payment-methods">
+                            <span class="payment-icon">💳</span>
+                            <span class="payment-icon">💳</span>
+                            <span class="payment-icon">💳</span>
+                            <span class="payment-icon">💳</span>
+                            <span class="payment-icon">💳</span>
+                        </div>
+                    </div>
+                    
+                    <div class="shipping-info">
+                        <p>📦 Orders ship within 5 to 10 business days.</p>
+                        <p>🎉 Hoorey! This item ships free to the US</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div id="cartSidebar" class="cart-sidebar" role="complementary" aria-label="Shopping cart" aria-hidden="true">
+        <div class="cart-header">
+            <h2>Shopping Cart</h2>
+            <button id="closeCartBtn" class="close-btn" aria-label="Close cart">&times;</button>
+        </div>
+        
+        <div id="cartItems" class="cart-items">
+            <!-- Cart items will be loaded here -->
+        </div>
+        
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">0</span>
+            </div>
+            <button id="checkoutBtn" class="btn btn-primary" style="width: 100%;">
+                Proceed to Checkout
+            </button>
+        </div>
+    </div>
+
+    <!-- Logo Upload Modal -->
+    <div id="logoUploadModal" class="modal" role="dialog" aria-labelledby="logoUploadTitle" aria-hidden="true">
+        <div class="modal-content modal-small">
+            <button class="modal-close" aria-label="Close modal">&times;</button>
+            
+            <h2 id="logoUploadTitle" class="modal-title">Upload Custom Logo</h2>
+            
+            <div class="logo-upload-form">
+                <div class="upload-area" id="uploadArea">
+                    <input type="file" id="logoFile" accept="image/*" aria-label="Choose logo file">
+                    <p>Drag and drop your logo here or click to select</p>
+                    <p class="upload-specs">Recommended: PNG/SVG, 500x500px, transparent background</p>
+                </div>
+                
+                <div id="logoPreview" class="logo-preview" style="display: none;">
+                    <img id="previewImg" src="/placeholder.svg" alt="Logo preview">
+                </div>
+                
+                <button id="uploadLogoBtn" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+                    Use This Logo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Overlay -->
+    <div id="cartOverlay" class="overlay" aria-hidden="true"></div>
+    <div id="modalOverlay" class="overlay" aria-hidden="true"></div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>N E X A <span style="color:#6a79fa;">1337</span></h4>
+                    <p>Empowering digital growth through creativity, technology, and smart strategy.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Menu</h4>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>About Us</h4>
+                    <ul>
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">Team</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Download App</h4>
+                    <div class="app-download-links">
+                        <a href="https://play.google.com/store" target="_blank" rel="noopener noreferrer" class="app-store-link" aria-label="Download on Google Play">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M3 3h18v18H3z"/>
+                                <path d="M12 3v18M3 12h18"/>
+                            </svg>
+                            <span>Google Play</span>
+                        </a>
+                        <a href="https://apps.apple.com" target="_blank" rel="noopener noreferrer" class="app-store-link" aria-label="Download on App Store">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-6M6 9l6-7 6 7"/>
+                            </svg>
+                            <span>App Store</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 NEXA1337 – All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/nexa1337" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="social-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                    </a>
+                    <a href="https://instagram.com/nexa1337" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="social-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1 1 12.324 0 6.162 6.162 0 0 1-12.324 0zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm4.965-10.322a1.44 1.44 0 1 1 2.881.001 1.44 1.44 0 0 1-2.881-.001z"/>
+                        </svg>
+                    </a>
+                    <a href="https://tiktok.com/@nexa.1337" target="_blank" rel="noopener noreferrer" aria-label="TikTok" class="social-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.68v13.67a2.4 2.4 0 1 1-4.77-1.58A2.4 2.4 0 0 1 9.1 13.66V9.58a6.47 6.47 0 0 0-6.47 6.47A6.47 6.47 0 0 0 9.1 22.52a6.47 6.47 0 0 0 6.47-6.47v-3.36a8.7 8.7 0 0 0 3.02 1.01v-3.66a4.5 4.5 0 0 1-.4-.04z"/>
+                        </svg>
+                    </a>
+                    <a href="https://api.whatsapp.com/send?phone=212723242286" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="social-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-4.782 1.176l-.013 1.39 4.552 2.251 3.635-1.993-.388-2.384a9.9 9.9 0 00-2.99-.44z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Embedded all data directly in HTML to avoid CORS errors -->
+    <script>
+        // Embedded products data
+        window.PRODUCTS_DATA = [
+  {
+    "id": 1,
+    "name": "Hummingbird Printed T-Shirt",
+    "description": "Premium quality printed t-shirt with beautiful hummingbird design",
+    "price": 1190,
+    "originalPrice": 1590,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg"
+    ],
+    "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+    "colors": ["Black", "White", "Navy", "Red"],
+    "category": "apparel",
+    "fullDescription": "Premium quality printed t-shirt featuring a beautiful hummingbird design. Made from 100% cotton with high-quality print that lasts."
+  },
+  {
+    "id": 2,
+    "name": "Mug The Adventure Begins",
+    "description": "Beautiful ceramic mug with adventure-themed design",
+    "price": 899,
+    "originalPrice": 1299,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg"
+    ],
+    "sizes": ["11oz", "15oz"],
+    "colors": ["White", "Black", "Blue"],
+    "category": "drinkware",
+    "fullDescription": "Beautiful ceramic mug with 'The Adventure Begins' design. Perfect for coffee, tea, or any hot beverage. Dishwasher safe."
+  },
+  {
+    "id": 3,
+    "name": "Mug Today Is A Good Day",
+    "description": "Inspirational ceramic mug with positive message",
+    "price": 1299,
+    "originalPrice": 1799,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/47-home_default/mug-today-is-a-good-day.jpg"
+    ],
+    "sizes": ["11oz", "15oz"],
+    "colors": ["White", "Black", "Cream"],
+    "category": "drinkware",
+    "fullDescription": "Start your day right with this inspirational mug. Features a positive message to brighten your morning. Premium ceramic quality."
+  },
+  {
+    "id": 4,
+    "name": "Brown Bear Cushion",
+    "description": "Adorable brown bear cushion for home decoration",
+    "price": 599,
+    "originalPrice": 899,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/56-home_default/brown-bear-cushion.jpg"
+    ],
+    "sizes": ["Small", "Medium", "Large"],
+    "colors": ["Brown", "Tan", "Dark Brown"],
+    "category": "accessories",
+    "fullDescription": "Cute and cuddly brown bear cushion perfect for any room. Soft and comfortable, great for decoration or as a gift."
+  },
+  {
+    "id": 5,
+    "name": "Classic T-Shirt",
+    "description": "Premium quality 100% cotton t-shirt perfect for custom printing",
+    "price": 449,
+    "originalPrice": 649,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg"
+    ],
+    "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+    "colors": ["Black", "White", "Navy", "Red", "Gray"],
+    "category": "apparel",
+    "fullDescription": "The ultimate classic t-shirt. Made from premium 100% cotton, it's perfect for any custom design or print."
+  },
+  {
+    "id": 6,
+    "name": "Premium Hoodie",
+    "description": "Comfortable and warm hoodie ideal for branding and custom designs",
+    "price": 799,
+    "originalPrice": 1099,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg"
+    ],
+    "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+    "colors": ["Black", "Navy", "Gray", "Charcoal"],
+    "category": "apparel",
+    "fullDescription": "Stay warm and comfortable with this premium hoodie. Perfect for layering or wearing on its own."
+  },
+  {
+    "id": 7,
+    "name": "Ceramic Mug",
+    "description": "11oz ceramic mug with high-quality print finish",
+    "price": 299,
+    "originalPrice": 399,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg"
+    ],
+    "sizes": ["11oz", "15oz"],
+    "colors": ["White", "Black", "Cream"],
+    "category": "drinkware",
+    "fullDescription": "Perfect for your morning coffee or tea. This ceramic mug features a smooth finish and comfortable handle."
+  },
+  {
+    "id": 8,
+    "name": "Baseball Cap",
+    "description": "Adjustable baseball cap perfect for outdoor branding",
+    "price": 199,
+    "originalPrice": 299,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg"
+    ],
+    "sizes": ["One Size"],
+    "colors": ["Black", "White", "Navy", "Red"],
+    "category": "accessories",
+    "fullDescription": "Classic baseball cap with adjustable strap. Perfect for outdoor activities and custom branding."
+  },
+  {
+    "id": 9,
+    "name": "Tote Bag",
+    "description": "Eco-friendly canvas tote bag for sustainable branding",
+    "price": 249,
+    "originalPrice": 349,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/56-home_default/brown-bear-cushion.jpg"
+    ],
+    "sizes": ["One Size"],
+    "colors": ["Natural", "Black", "Navy", "Red"],
+    "category": "bags",
+    "fullDescription": "Eco-friendly canvas tote bag perfect for shopping or everyday use. Great for custom printing."
+  },
+  {
+    "id": 10,
+    "name": "Phone Case",
+    "description": "Durable phone case with custom print protection",
+    "price": 99,
+    "originalPrice": 149,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg"
+    ],
+    "sizes": ["iPhone 13", "iPhone 14", "iPhone 15", "Samsung S21", "Samsung S22"],
+    "colors": ["Black", "Clear", "White"],
+    "category": "tech",
+    "fullDescription": "Protect your phone with style. Durable materials provide excellent protection against drops and scratches."
+  },
+  {
+    "id": 11,
+    "name": "Sweatshirt",
+    "description": "Cozy sweatshirt perfect for casual branding and comfort",
+    "price": 449,
+    "originalPrice": 599,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg"
+    ],
+    "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+    "colors": ["Black", "Gray", "Navy", "Charcoal"],
+    "category": "apparel",
+    "fullDescription": "Comfortable and cozy sweatshirt perfect for casual wear. Made from soft, breathable fabric."
+  },
+  {
+    "id": 12,
+    "name": "Sticker Sheet",
+    "description": "High-quality vinyl sticker sheet for branding and decoration",
+    "price": 49,
+    "originalPrice": 79,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/47-home_default/mug-today-is-a-good-day.jpg"
+    ],
+    "sizes": ["4x6 inches", "6x8 inches"],
+    "colors": ["Full Color", "White", "Clear"],
+    "category": "stickers",
+    "fullDescription": "High-quality vinyl stickers perfect for decoration and branding. Weather-resistant and durable."
+  },
+  {
+    "id": 13,
+    "name": "Polo Shirt",
+    "description": "Professional polo shirt with embroidery options",
+    "price": 349,
+    "originalPrice": 449,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg"
+    ],
+    "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+    "colors": ["Black", "White", "Navy", "Red", "Gray"],
+    "category": "apparel",
+    "fullDescription": "Professional polo shirt perfect for corporate branding. Available with embroidery options."
+  },
+  {
+    "id": 14,
+    "name": "Water Bottle",
+    "description": "Stainless steel water bottle with custom print",
+    "price": 199,
+    "originalPrice": 279,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg"
+    ],
+    "sizes": ["500ml", "750ml", "1L"],
+    "colors": ["Silver", "Black", "Blue"],
+    "category": "drinkware",
+    "fullDescription": "Keep your drinks at the perfect temperature with this stainless steel water bottle. Perfect for outdoor activities."
+  },
+  {
+    "id": 15,
+    "name": "Beanie Hat",
+    "description": "Warm and stylish beanie perfect for winter branding",
+    "price": 149,
+    "originalPrice": 199,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg"
+    ],
+    "sizes": ["One Size"],
+    "colors": ["Black", "Navy", "Gray", "Red"],
+    "category": "accessories",
+    "fullDescription": "Stay warm and stylish with this premium beanie. Perfect for winter activities and custom branding."
+  },
+  {
+    "id": 16,
+    "name": "Backpack",
+    "description": "Durable and spacious backpack for everyday use",
+    "price": 499,
+    "originalPrice": 699,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/56-home_default/brown-bear-cushion.jpg"
+    ],
+    "sizes": ["One Size"],
+    "colors": ["Black", "Navy", "Gray"],
+    "category": "bags",
+    "fullDescription": "Spacious and durable backpack perfect for work, school, or travel. Multiple compartments for organization."
+  },
+  {
+    "id": 17,
+    "name": "Laptop Sleeve",
+    "description": "Protective laptop sleeve with custom branding",
+    "price": 299,
+    "originalPrice": 399,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg"
+    ],
+    "sizes": ["13 inch", "15 inch", "17 inch"],
+    "colors": ["Black", "Gray", "Navy"],
+    "category": "tech",
+    "fullDescription": "Protect your laptop with this durable sleeve. Soft interior padding provides excellent protection."
+  },
+  {
+    "id": 18,
+    "name": "Vinyl Stickers Pack",
+    "description": "Set of 10 custom vinyl stickers for decoration",
+    "price": 79,
+    "originalPrice": 129,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/47-home_default/mug-today-is-a-good-day.jpg"
+    ],
+    "sizes": ["Standard"],
+    "colors": ["Full Color", "White", "Clear"],
+    "category": "stickers",
+    "fullDescription": "Set of 10 high-quality vinyl stickers. Perfect for personalizing laptops, water bottles, and more."
+  },
+  {
+    "id": 19,
+    "name": "Tank Top",
+    "description": "Lightweight tank top perfect for summer branding",
+    "price": 199,
+    "originalPrice": 279,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg"
+    ],
+    "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+    "colors": ["Black", "White", "Navy", "Red"],
+    "category": "apparel",
+    "fullDescription": "Lightweight and comfortable tank top perfect for summer wear. Great for custom designs."
+  },
+  {
+    "id": 20,
+    "name": "Coffee Tumbler",
+    "description": "Insulated coffee tumbler with custom print",
+    "price": 249,
+    "originalPrice": 349,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg"
+    ],
+    "sizes": ["12oz", "16oz"],
+    "colors": ["Black", "White", "Red"],
+    "category": "drinkware",
+    "fullDescription": "Keep your coffee hot with this insulated tumbler. Perfect for on-the-go and custom printing."
+  },
+  {
+    "id": 21,
+    "name": "Sunglasses",
+    "description": "UV protection sunglasses with custom branding",
+    "price": 299,
+    "originalPrice": 399,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/56-home_default/brown-bear-cushion.jpg"
+    ],
+    "sizes": ["One Size"],
+    "colors": ["Black", "Brown", "Blue"],
+    "category": "accessories",
+    "fullDescription": "Stylish sunglasses with UV protection. Perfect for outdoor activities and custom branding."
+  },
+  {
+    "id": 22,
+    "name": "Messenger Bag",
+    "description": "Professional messenger bag for work and travel",
+    "price": 399,
+    "originalPrice": 549,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/56-home_default/brown-bear-cushion.jpg"
+    ],
+    "sizes": ["One Size"],
+    "colors": ["Black", "Brown", "Navy"],
+    "category": "bags",
+    "fullDescription": "Professional messenger bag perfect for work and travel. Multiple compartments for organization."
+  },
+  {
+    "id": 23,
+    "name": "Wireless Earbuds Case",
+    "description": "Protective case for wireless earbuds with custom design",
+    "price": 79,
+    "originalPrice": 129,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg"
+    ],
+    "sizes": ["Standard"],
+    "colors": ["Black", "White", "Blue"],
+    "category": "tech",
+    "fullDescription": "Protect your wireless earbuds with this durable case. Perfect for travel and daily use."
+  },
+  {
+    "id": 24,
+    "name": "Amelia iPhone Case",
+    "description": "Premium protective iPhone case with custom name design",
+    "price": 1190,
+    "originalPrice": 1590,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg"
+    ],
+    "sizes": ["iPhone 12", "iPhone 13", "iPhone 14", "iPhone 15", "iPhone 15 Pro"],
+    "colors": ["Black", "White", "Blue", "Red"],
+    "category": "tech",
+    "fullDescription": "Protect your iPhone with style. This premium case features a custom name design with elegant typography."
+  },
+  {
+    "id": 25,
+    "name": "Luxury Cushion",
+    "description": "Premium luxury cushion for home decoration",
+    "price": 699,
+    "originalPrice": 999,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/56-home_default/brown-bear-cushion.jpg"
+    ],
+    "sizes": ["Small", "Medium", "Large"],
+    "colors": ["Brown", "Tan", "Dark Brown", "Cream"],
+    "category": "accessories",
+    "fullDescription": "Premium luxury cushion perfect for any room. Soft, comfortable, and beautifully designed for home decoration."
+  }
+        ];
+
+        // Embedded translations data
+        window.TRANSLATIONS_DATA = {
+  "en": {
+    "header": {
+      "searchPlaceholder": "Search products...",
+      "cart": "Shopping Cart",
+      "language": "Language",
+      "currency": "Currency",
+      "home": "Home",
+      "products": "Products",
+      "about": "About",
+      "contact": "Contact"
+    },
+    "hero": {
+      "badge": "PRINT WITH NEXA",
+      "title": "Popular Brand Design & Print Products",
+      "packaging": "Packaging",
+      "homeAndLiving": "Home & Living",
+      "jewelry": "Jewelry",
+      "businessCards": "Business Cards",
+      "booklets": "Booklets",
+      "clothingAndBags": "Clothing & Bags"
+    },
+    "featured": {
+      "badge": "WHAT'S HOT, RIGHT NOW!",
+      "title": "Personalized Products For Your Favorite People",
+      "allProducts": "All Products",
+      "clothingAndBags": "Clothing & Bags",
+      "drinkware": "Drinkware",
+      "accessories": "Accessories",
+      "noProducts": "No products found"
+    },
+    "products": {
+      "title": "Our Products",
+      "addToCart": "Add to Cart",
+      "orderViaWhatsApp": "Order via WhatsApp",
+      "selectSize": "Select Size",
+      "selectColor": "Select Color",
+      "quantity": "Quantity",
+      "price": "Price",
+      "viewDetails": "View Details"
+    },
+    "cart": {
+      "title": "Shopping Cart",
+      "empty": "Your cart is empty",
+      "total": "Total",
+      "checkout": "Proceed to Checkout",
+      "remove": "Remove",
+      "size": "Size",
+      "color": "Color",
+      "qty": "Qty"
+    },
+    "modal": {
+      "close": "Close",
+      "size": "Size",
+      "color": "Color",
+      "quantity": "Quantity",
+      "chooseSize": "Choose a size",
+      "chooseColor": "Choose a color"
+    },
+    "footer": {
+      "about": "About NEXA Print",
+      "description": "Premium print-on-demand solutions for your custom merchandise needs.",
+      "links": "Quick Links",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "contact": "Contact Us",
+      "integrations": "Integrations",
+      "powered": "Powered by Printful, Printify, Mayzing, and Todify",
+      "copyright": "© 2025 NEXA Print. All rights reserved."
+    }
+  },
+  "es": {
+    "header": {
+      "searchPlaceholder": "Buscar productos...",
+      "cart": "Carrito de Compras",
+      "language": "Idioma",
+      "currency": "Moneda",
+      "home": "Inicio",
+      "products": "Productos",
+      "about": "Acerca de",
+      "contact": "Contacto"
+    },
+    "hero": {
+      "badge": "IMPRIME CON NEXA",
+      "title": "Productos de Diseño Popular e Impresión",
+      "packaging": "Embalaje",
+      "homeAndLiving": "Hogar y Vida",
+      "jewelry": "Joyería",
+      "businessCards": "Tarjetas de Negocio",
+      "booklets": "Folletos",
+      "clothingAndBags": "Ropa y Bolsas"
+    },
+    "featured": {
+      "badge": "¡LO MÁS CALIENTE AHORA!",
+      "title": "Productos Personalizados Para Tus Personas Favoritas",
+      "allProducts": "Todos los Productos",
+      "clothingAndBags": "Ropa y Bolsas",
+      "drinkware": "Artículos para Beber",
+      "accessories": "Accesorios",
+      "noProducts": "No se encontraron productos"
+    },
+    "products": {
+      "title": "Nuestros Productos",
+      "addToCart": "Agregar al Carrito",
+      "orderViaWhatsApp": "Pedir por WhatsApp",
+      "selectSize": "Seleccionar Tamaño",
+      "selectColor": "Seleccionar Color",
+      "quantity": "Cantidad",
+      "price": "Precio",
+      "viewDetails": "Ver Detalles"
+    },
+    "cart": {
+      "title": "Carrito de Compras",
+      "empty": "Tu carrito está vacío",
+      "total": "Total",
+      "checkout": "Proceder al Pago",
+      "remove": "Eliminar",
+      "size": "Tamaño",
+      "color": "Color",
+      "qty": "Cant"
+    },
+    "modal": {
+      "close": "Cerrar",
+      "size": "Tamaño",
+      "color": "Color",
+      "quantity": "Cantidad",
+      "chooseSize": "Elige un tamaño",
+      "chooseColor": "Elige un color"
+    },
+    "footer": {
+      "about": "Acerca de NEXA Print",
+      "description": "Soluciones premium de impresión bajo demanda para tus necesidades de mercancía personalizada.",
+      "links": "Enlaces Rápidos",
+      "privacy": "Política de Privacidad",
+      "terms": "Términos de Servicio",
+      "contact": "Contáctenos",
+      "integrations": "Integraciones",
+      "powered": "Impulsado por Printful, Printify, Mayzing y Todify",
+      "copyright": "© 2025 NEXA Print. Todos los derechos reservados."
+    }
+  },
+  "ar": {
+    "header": {
+      "searchPlaceholder": "ابحث عن المنتجات...",
+      "cart": "سلة التسوق",
+      "language": "اللغة",
+      "currency": "العملة",
+      "home": "الرئيسية",
+      "products": "المنتجات",
+      "about": "حول",
+      "contact": "اتصل"
+    },
+    "hero": {
+      "badge": "اطبع مع نيكسا",
+      "title": "منتجات التصميم الشهيرة والطباعة",
+      "packaging": "التغليف",
+      "homeAndLiving": "المنزل والمعيشة",
+      "jewelry": "المجوهرات",
+      "businessCards": "بطاقات العمل",
+      "booklets": "الكتيبات",
+      "clothingAndBags": "الملابس والحقائب"
+    },
+    "featured": {
+      "badge": "الأكثر سخونة الآن!",
+      "title": "منتجات مخصصة لأشخاصك المفضلين",
+      "allProducts": "جميع المنتجات",
+      "clothingAndBags": "الملابس والحقائب",
+      "drinkware": "أدوات الشرب",
+      "accessories": "الملحقات",
+      "noProducts": "لم يتم العثور على منتجات"
+    },
+    "products": {
+      "title": "منتجاتنا",
+      "addToCart": "أضف إلى السلة",
+      "orderViaWhatsApp": "اطلب عبر واتس آب",
+      "selectSize": "اختر الحجم",
+      "selectColor": "اختر اللون",
+      "quantity": "الكمية",
+      "price": "السعر",
+      "viewDetails": "عرض التفاصيل"
+    },
+    "cart": {
+      "title": "سلة التسوق",
+      "empty": "سلتك فارغة",
+      "total": "الإجمالي",
+      "checkout": "متابعة الدفع",
+      "remove": "إزالة",
+      "size": "الحجم",
+      "color": "اللون",
+      "qty": "الكمية"
+    },
+    "modal": {
+      "close": "إغلاق",
+      "size": "الحجم",
+      "color": "اللون",
+      "quantity": "الكمية",
+      "chooseSize": "اختر حجماً",
+      "chooseColor": "اختر لوناً"
+    },
+    "footer": {
+      "about": "حول نيكسا برينت",
+      "description": "حلول طباعة عالية الجودة حسب الطلب لاحتياجات البضائع المخصصة الخاصة بك.",
+      "links": "روابط سريعة",
+      "privacy": "سياسة الخصوصية",
+      "terms": "شروط الخدمة",
+      "contact": "اتصل بنا",
+      "integrations": "التكاملات",
+      "powered": "مدعوم من Printful و Printify و Mayzing و Todify",
+      "copyright": "© 2025 نيكسا برينت. جميع الحقوق محفوظة."
+    }
+  }
+        };
+
+        // Embedded currencies data
+        window.CURRENCIES_DATA = {
+  "MAD": {
+    "symbol": "د.م.",
+    "name": "Moroccan Dirham",
+    "rate": 1
+  },
+  "USD": {
+    "symbol": "$",
+    "name": "US Dollar",
+    "rate": 0.1
+  },
+  "EUR": {
+    "symbol": "€",
+    "name": "Euro",
+    "rate": 0.095
+  }
+        };
+    </script>
+
+    <!-- Scripts -->
+    <script src="js/i18n.js"></script>
+    <script src="js/currency.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

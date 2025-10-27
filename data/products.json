@@ -1,0 +1,402 @@
+[
+  {
+    "id": 1,
+    "name": "Hummingbird Printed T-Shirt",
+    "description": "Premium quality printed t-shirt with beautiful hummingbird design",
+    "price": 1190,
+    "originalPrice": 1590,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg"
+    ],
+    "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+    "colors": ["Black", "White", "Navy", "Red"],
+    "category": "apparel",
+    "fullDescription": "Premium quality printed t-shirt featuring a beautiful hummingbird design. Made from 100% cotton with high-quality print that lasts."
+  },
+  {
+    "id": 2,
+    "name": "Mug The Adventure Begins",
+    "description": "Beautiful ceramic mug with adventure-themed design",
+    "price": 899,
+    "originalPrice": 1299,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg"
+    ],
+    "sizes": ["11oz", "15oz"],
+    "colors": ["White", "Black", "Blue"],
+    "category": "drinkware",
+    "fullDescription": "Beautiful ceramic mug with 'The Adventure Begins' design. Perfect for coffee, tea, or any hot beverage. Dishwasher safe."
+  },
+  {
+    "id": 3,
+    "name": "Mug Today Is A Good Day",
+    "description": "Inspirational ceramic mug with positive message",
+    "price": 1299,
+    "originalPrice": 1799,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/47-home_default/mug-today-is-a-good-day.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/47-home_default/mug-today-is-a-good-day.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/47-home_default/mug-today-is-a-good-day.jpg"
+    ],
+    "sizes": ["11oz", "15oz"],
+    "colors": ["White", "Black", "Cream"],
+    "category": "drinkware",
+    "fullDescription": "Start your day right with this inspirational mug. Features a positive message to brighten your morning. Premium ceramic quality."
+  },
+  {
+    "id": 4,
+    "name": "Brown Bear Cushion",
+    "description": "Adorable brown bear cushion for home decoration",
+    "price": 599,
+    "originalPrice": 899,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/56-home_default/brown-bear-cushion.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/56-home_default/brown-bear-cushion.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/56-home_default/brown-bear-cushion.jpg"
+    ],
+    "sizes": ["Small", "Medium", "Large"],
+    "colors": ["Brown", "Tan", "Dark Brown"],
+    "category": "home",
+    "fullDescription": "Cute and cuddly brown bear cushion perfect for any room. Soft and comfortable, great for decoration or as a gift."
+  },
+  {
+    "id": 5,
+    "name": "Classic T-Shirt",
+    "description": "Premium quality 100% cotton t-shirt perfect for custom printing",
+    "price": 449,
+    "originalPrice": 649,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg"
+    ],
+    "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+    "colors": ["Black", "White", "Navy", "Red", "Gray"],
+    "category": "apparel",
+    "fullDescription": "The ultimate classic t-shirt. Made from premium 100% cotton, it's perfect for any custom design or print."
+  },
+  {
+    "id": 6,
+    "name": "Premium Hoodie",
+    "description": "Comfortable and warm hoodie ideal for branding and custom designs",
+    "price": 799,
+    "originalPrice": 1099,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg"
+    ],
+    "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+    "colors": ["Black", "Navy", "Gray", "Charcoal"],
+    "category": "apparel",
+    "fullDescription": "Stay warm and comfortable with this premium hoodie. Perfect for layering or wearing on its own."
+  },
+  {
+    "id": 7,
+    "name": "Ceramic Mug",
+    "description": "11oz ceramic mug with high-quality print finish",
+    "price": 299,
+    "originalPrice": 399,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg"
+    ],
+    "sizes": ["11oz", "15oz"],
+    "colors": ["White", "Black", "Cream"],
+    "category": "drinkware",
+    "fullDescription": "Perfect for your morning coffee or tea. This ceramic mug features a smooth finish and comfortable handle."
+  },
+  {
+    "id": 8,
+    "name": "Baseball Cap",
+    "description": "Adjustable baseball cap perfect for outdoor branding",
+    "price": 199,
+    "originalPrice": 299,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg"
+    ],
+    "sizes": ["One Size"],
+    "colors": ["Black", "White", "Navy", "Red"],
+    "category": "accessories",
+    "fullDescription": "Classic baseball cap with adjustable strap. Perfect for outdoor activities and custom branding."
+  },
+  {
+    "id": 9,
+    "name": "Tote Bag",
+    "description": "Eco-friendly canvas tote bag for sustainable branding",
+    "price": 249,
+    "originalPrice": 349,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/56-home_default/brown-bear-cushion.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/56-home_default/brown-bear-cushion.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/56-home_default/brown-bear-cushion.jpg"
+    ],
+    "sizes": ["One Size"],
+    "colors": ["Natural", "Black", "Navy", "Red"],
+    "category": "bags",
+    "fullDescription": "Eco-friendly canvas tote bag perfect for shopping or everyday use. Great for custom printing."
+  },
+  {
+    "id": 10,
+    "name": "Phone Case",
+    "description": "Durable phone case with custom print protection",
+    "price": 99,
+    "originalPrice": 149,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg"
+    ],
+    "sizes": ["iPhone 13", "iPhone 14", "iPhone 15", "Samsung S21", "Samsung S22"],
+    "colors": ["Black", "Clear", "White"],
+    "category": "tech",
+    "fullDescription": "Protect your phone with style. Durable materials provide excellent protection against drops and scratches."
+  },
+  {
+    "id": 11,
+    "name": "Sweatshirt",
+    "description": "Cozy sweatshirt perfect for casual branding and comfort",
+    "price": 449,
+    "originalPrice": 599,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg"
+    ],
+    "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+    "colors": ["Black", "Gray", "Navy", "Charcoal"],
+    "category": "apparel",
+    "fullDescription": "Comfortable and cozy sweatshirt perfect for casual wear. Made from soft, breathable fabric."
+  },
+  {
+    "id": 12,
+    "name": "Sticker Sheet",
+    "description": "High-quality vinyl sticker sheet for branding and decoration",
+    "price": 49,
+    "originalPrice": 79,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/47-home_default/mug-today-is-a-good-day.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/47-home_default/mug-today-is-a-good-day.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/47-home_default/mug-today-is-a-good-day.jpg"
+    ],
+    "sizes": ["4x6 inches", "6x8 inches"],
+    "colors": ["Full Color", "White", "Clear"],
+    "category": "stickers",
+    "fullDescription": "High-quality vinyl stickers perfect for decoration and branding. Weather-resistant and durable."
+  },
+  {
+    "id": 13,
+    "name": "Polo Shirt",
+    "description": "Professional polo shirt with embroidery options",
+    "price": 349,
+    "originalPrice": 449,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg"
+    ],
+    "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+    "colors": ["Black", "White", "Navy", "Red", "Gray"],
+    "category": "apparel",
+    "fullDescription": "Professional polo shirt perfect for corporate branding. Available with embroidery options."
+  },
+  {
+    "id": 14,
+    "name": "Water Bottle",
+    "description": "Stainless steel water bottle with custom print",
+    "price": 199,
+    "originalPrice": 279,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg"
+    ],
+    "sizes": ["500ml", "750ml", "1L"],
+    "colors": ["Silver", "Black", "Blue"],
+    "category": "drinkware",
+    "fullDescription": "Keep your drinks at the perfect temperature with this stainless steel water bottle. Perfect for outdoor activities."
+  },
+  {
+    "id": 15,
+    "name": "Beanie Hat",
+    "description": "Warm and stylish beanie perfect for winter branding",
+    "price": 149,
+    "originalPrice": 199,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg"
+    ],
+    "sizes": ["One Size"],
+    "colors": ["Black", "Navy", "Gray", "Red"],
+    "category": "accessories",
+    "fullDescription": "Stay warm and stylish with this premium beanie. Perfect for winter activities and custom branding."
+  },
+  {
+    "id": 16,
+    "name": "Backpack",
+    "description": "Durable and spacious backpack for everyday use",
+    "price": 499,
+    "originalPrice": 699,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/56-home_default/brown-bear-cushion.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/56-home_default/brown-bear-cushion.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/56-home_default/brown-bear-cushion.jpg"
+    ],
+    "sizes": ["One Size"],
+    "colors": ["Black", "Navy", "Gray"],
+    "category": "bags",
+    "fullDescription": "Spacious and durable backpack perfect for work, school, or travel. Multiple compartments for organization."
+  },
+  {
+    "id": 17,
+    "name": "Laptop Sleeve",
+    "description": "Protective laptop sleeve with custom branding",
+    "price": 299,
+    "originalPrice": 399,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg"
+    ],
+    "sizes": ["13 inch", "15 inch", "17 inch"],
+    "colors": ["Black", "Gray", "Navy"],
+    "category": "tech",
+    "fullDescription": "Protect your laptop with this durable sleeve. Soft interior padding provides excellent protection."
+  },
+  {
+    "id": 18,
+    "name": "Vinyl Stickers Pack",
+    "description": "Set of 10 custom vinyl stickers for decoration",
+    "price": 79,
+    "originalPrice": 129,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/47-home_default/mug-today-is-a-good-day.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/47-home_default/mug-today-is-a-good-day.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/47-home_default/mug-today-is-a-good-day.jpg"
+    ],
+    "sizes": ["Standard"],
+    "colors": ["Full Color", "White", "Clear"],
+    "category": "stickers",
+    "fullDescription": "Set of 10 high-quality vinyl stickers. Perfect for personalizing laptops, water bottles, and more."
+  },
+  {
+    "id": 19,
+    "name": "Tank Top",
+    "description": "Lightweight tank top perfect for summer branding",
+    "price": 199,
+    "originalPrice": 279,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg"
+    ],
+    "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+    "colors": ["Black", "White", "Navy", "Red"],
+    "category": "apparel",
+    "fullDescription": "Lightweight and comfortable tank top perfect for summer wear. Great for custom designs."
+  },
+  {
+    "id": 20,
+    "name": "Coffee Tumbler",
+    "description": "Insulated coffee tumbler with custom print",
+    "price": 249,
+    "originalPrice": 349,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg"
+    ],
+    "sizes": ["12oz", "16oz"],
+    "colors": ["Black", "White", "Red"],
+    "category": "drinkware",
+    "fullDescription": "Keep your coffee hot with this insulated tumbler. Perfect for on-the-go and custom printing."
+  },
+  {
+    "id": 21,
+    "name": "Sunglasses",
+    "description": "UV protection sunglasses with custom branding",
+    "price": 299,
+    "originalPrice": 399,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/56-home_default/brown-bear-cushion.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/56-home_default/brown-bear-cushion.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/56-home_default/brown-bear-cushion.jpg"
+    ],
+    "sizes": ["One Size"],
+    "colors": ["Black", "Brown", "Blue"],
+    "category": "accessories",
+    "fullDescription": "Stylish sunglasses with UV protection. Perfect for outdoor activities and custom branding."
+  },
+  {
+    "id": 22,
+    "name": "Messenger Bag",
+    "description": "Professional messenger bag for work and travel",
+    "price": 399,
+    "originalPrice": 549,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/56-home_default/brown-bear-cushion.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/56-home_default/brown-bear-cushion.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/56-home_default/brown-bear-cushion.jpg"
+    ],
+    "sizes": ["One Size"],
+    "colors": ["Black", "Brown", "Navy"],
+    "category": "bags",
+    "fullDescription": "Professional messenger bag perfect for work and travel. Multiple compartments for organization."
+  },
+  {
+    "id": 23,
+    "name": "Wireless Earbuds Case",
+    "description": "Protective case for wireless earbuds with custom design",
+    "price": 79,
+    "originalPrice": 129,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg"
+    ],
+    "sizes": ["Standard"],
+    "colors": ["Black", "White", "Blue"],
+    "category": "tech",
+    "fullDescription": "Protect your wireless earbuds with this durable case. Perfect for travel and daily use."
+  },
+  {
+    "id": 24,
+    "name": "Amelia iPhone Case",
+    "description": "Premium protective iPhone case with custom name design",
+    "price": 1190,
+    "originalPrice": 1590,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/45-home_default/mug-the-adventure-begins.jpg"
+    ],
+    "sizes": ["iPhone 12", "iPhone 13", "iPhone 14", "iPhone 15", "iPhone 15 Pro"],
+    "colors": ["Black", "White", "Blue", "Red"],
+    "category": "tech",
+    "fullDescription": "Protect your iPhone with style. This premium case features a custom name design with elegant typography."
+  },
+  {
+    "id": 25,
+    "name": "Luxury Cushion",
+    "description": "Premium luxury cushion for home decoration",
+    "price": 699,
+    "originalPrice": 999,
+    "images": [
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/56-home_default/brown-bear-cushion.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/56-home_default/brown-bear-cushion.jpg",
+      "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/56-home_default/brown-bear-cushion.jpg"
+    ],
+    "sizes": ["Small", "Medium", "Large"],
+    "colors": ["Brown", "Tan", "Dark Brown", "Cream"],
+    "category": "home",
+    "fullDescription": "Premium luxury cushion perfect for any room. Soft, comfortable, and beautifully designed for home decoration."
+  }
+]

@@ -1,0 +1,107 @@
+{
+  "en": {
+    "header": {
+      "searchPlaceholder": "Search products...",
+      "cart": "Shopping Cart",
+      "language": "Language",
+      "currency": "Currency"
+    },
+    "products": {
+      "title": "Our Products",
+      "addToCart": "Add to Cart",
+      "orderViaWhatsApp": "Order via WhatsApp",
+      "selectSize": "Select Size",
+      "quantity": "Quantity",
+      "price": "Price"
+    },
+    "cart": {
+      "title": "Shopping Cart",
+      "empty": "Your cart is empty",
+      "total": "Total",
+      "checkout": "Proceed to Checkout",
+      "remove": "Remove"
+    },
+    "modal": {
+      "close": "Close",
+      "size": "Size",
+      "quantity": "Quantity"
+    },
+    "footer": {
+      "about": "About NEXA Print",
+      "links": "Quick Links",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "contact": "Contact Us"
+    }
+  },
+  "es": {
+    "header": {
+      "searchPlaceholder": "Buscar productos...",
+      "cart": "Carrito de Compras",
+      "language": "Idioma",
+      "currency": "Moneda"
+    },
+    "products": {
+      "title": "Nuestros Productos",
+      "addToCart": "Agregar al Carrito",
+      "orderViaWhatsApp": "Pedir por WhatsApp",
+      "selectSize": "Seleccionar Tamaño",
+      "quantity": "Cantidad",
+      "price": "Precio"
+    },
+    "cart": {
+      "title": "Carrito de Compras",
+      "empty": "Tu carrito está vacío",
+      "total": "Total",
+      "checkout": "Proceder al Pago",
+      "remove": "Eliminar"
+    },
+    "modal": {
+      "close": "Cerrar",
+      "size": "Tamaño",
+      "quantity": "Cantidad"
+    },
+    "footer": {
+      "about": "Acerca de NEXA Print",
+      "links": "Enlaces Rápidos",
+      "privacy": "Política de Privacidad",
+      "terms": "Términos de Servicio",
+      "contact": "Contáctenos"
+    }
+  },
+  "ar": {
+    "header": {
+      "searchPlaceholder": "البحث عن المنتجات...",
+      "cart": "سلة التسوق",
+      "language": "اللغة",
+      "currency": "العملة"
+    },
+    "products": {
+      "title": "منتجاتنا",
+      "addToCart": "أضف إلى السلة",
+      "orderViaWhatsApp": "اطلب عبر واتس آب",
+      "selectSize": "اختر الحجم",
+      "quantity": "الكمية",
+      "price": "السعر"
+    },
+    "cart": {
+      "title": "سلة التسوق",
+      "empty": "سلتك فارغة",
+      "total": "الإجمالي",
+      "checkout": "متابعة الدفع",
+      "remove": "إزالة"
+    },
+    "modal": {
+      "close": "إغلاق",
+      "size": "الحجم",
+      "quantity": "الكمية"
+    },
+    "footer": {
+      "about": "حول NEXA Print",
+      "links": "روابط سريعة",
+      "privacy": "سياسة الخصوصية",
+      "terms": "شروط الخدمة",
+      "contact": "اتصل بنا"
+    }
+  }
+}

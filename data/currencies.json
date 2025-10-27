@@ -1,0 +1,17 @@
+{
+  "MAD": {
+    "symbol": "د.م.",
+    "name": "Moroccan Dirham",
+    "rate": 1
+  },
+  "USD": {
+    "symbol": "$",
+    "name": "US Dollar",
+    "rate": 0.1
+  },
+  "EUR": {
+    "symbol": "€",
+    "name": "Euro",
+    "rate": 0.095
+  }
+}
