@@ -1,7 +1,7 @@
 const Currency = (() => {
   let currentCurrency = localStorage.getItem("currency") || "MAD"
   let rates = {}
-  let userCurrency = null
+  const userCurrency = null
 
   const init = async () => {
     try {
@@ -9,25 +9,25 @@ const Currency = (() => {
       console.log("[v0] Currencies loaded:", Object.keys(rates))
 
       // Try to detect user's currency via IP geolocation
-      detectUserCurrency()
+      // detectUserCurrency()
     } catch (error) {
       console.error("[v0] Failed to load currencies:", error)
     }
   }
 
-  const detectUserCurrency = async () => {
-    try {
-      const response = await fetch("https://ipapi.co/json/")
-      const data = await response.json()
-      const detectedCurrency = data.currency
-
-      if (rates[detectedCurrency]) {
-        userCurrency = detectedCurrency
-      }
-    } catch (error) {
-      console.log("[v0] Could not detect user currency")
-    }
-  }
+  // const detectUserCurrency = async () => {
+  //   try {
+  //     const response = await fetch("https://ipapi.co/json/")
+  //     const data = await response.json()
+  //     const detectedCurrency = data.currency
+  //
+  //     if (rates[detectedCurrency]) {
+  //       userCurrency = detectedCurrency
+  //     }
+  //   } catch (error) {
+  //     console.log("[v0] Could not detect user currency")
+  //   }
+  // }
 
   const setCurrency = (currency) => {
     if (rates[currency]) {

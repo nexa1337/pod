@@ -1,12 +1,23 @@
 // Main Application
 const App = (() => {
   let products = []
-  let cart = []
+  let filteredProducts = []
+  let currentPage = 1
+  const productsPerPage = 12
   let currentProduct = null
   let currentImageIndex = 0
-  let currentPage = 1
-  const productsPerPage = 10
-  let filteredProducts = []
+  let cart = []
+
+  // Mock translation function for t()
+  const t = (key) => {
+    // In a real application, this would fetch translations based on the current language.
+    // For this example, we'll return a placeholder.
+    const translations = {
+      "cart.empty": "Your cart is empty.",
+      // Add more translations as needed
+    }
+    return translations[key] || key
+  }
 
   const setupScrollToTopButton = () => {
     const scrollBtn = document.getElementById("scrollToTopBtn")
@@ -49,6 +60,10 @@ const App = (() => {
     await window.I18n.init()
     await window.Currency.init()
 
+    if (window.DataSync) {
+      window.DataSync.init()
+    }
+
     const savedProducts = localStorage.getItem("websiteProducts")
     if (savedProducts) {
       try {
@@ -69,20 +84,31 @@ const App = (() => {
       renderProducts(products)
     })
 
+    window.addEventListener("dataSync:productsUpdated", (event) => {
+      products = event.detail.products || []
+      console.log("[v0] ✅ Products synced from DataSync:", products.length, "products")
+      renderProducts(products)
+    })
+
     const savedSettings = localStorage.getItem("websiteSettings")
     if (savedSettings) {
       try {
         const settings = JSON.parse(savedSettings)
-        console.log("[v0] Applying saved settings:", settings)
+        console.log("[v0] Loaded website settings from localStorage")
         applyWebsiteSettings(settings)
       } catch (error) {
-        console.error("[v0] Error applying settings:", error)
+        console.error("[v0] Error parsing settings:", error)
       }
     }
 
     window.addEventListener("settingsUpdated", (event) => {
-      console.log("[v0] Settings updated from admin panel:", event.detail.settings)
+      console.log("[v0] ✅ Settings updated from admin dashboard")
       applyWebsiteSettings(event.detail.settings)
+    })
+
+    window.addEventListener("homeContentUpdated", (event) => {
+      console.log("[v0] ✅ Home content updated from admin dashboard")
+      applyHomeContent(event.detail.homeContent)
     })
 
     setupEventListeners()
@@ -122,6 +148,103 @@ const App = (() => {
     }
 
     console.log("[v0] App initialized successfully with", products.length, "products")
+  }
+
+  const applyWebsiteSettings = (settings) => {
+    if (!settings) return
+
+    // Apply theme colors
+    if (settings.theme) {
+      const root = document.documentElement
+      if (settings.theme.primaryColor) {
+        root.style.setProperty("--primary-color", settings.theme.primaryColor)
+      }
+      if (settings.theme.secondaryColor) {
+        root.style.setProperty("--secondary-color", settings.theme.secondaryColor)
+      }
+      if (settings.theme.accentColor) {
+        root.style.setProperty("--accent-color", settings.theme.accentColor)
+      }
+      if (settings.theme.backgroundColor) {
+        root.style.setProperty("--background-color", settings.theme.backgroundColor)
+      }
+    }
+
+    // Apply store information
+    if (settings.store) {
+      const footerStore = document.querySelector(".footer-section h4")
+      if (footerStore && settings.store.name) {
+        footerStore.textContent = settings.store.name
+      }
+
+      // Update contact info
+      const phoneLink = document.querySelector('a[href^="tel:"]')
+      if (phoneLink && settings.store.phone) {
+        phoneLink.href = "tel:" + settings.store.phone.replace(/\s/g, "")
+        phoneLink.textContent = settings.store.phone
+      }
+
+      const emailLink = document.querySelector('a[href^="mailto:"]')
+      if (emailLink && settings.store.email) {
+        emailLink.href = "mailto:" + settings.store.email
+        emailLink.textContent = settings.store.email
+      }
+    }
+
+    // Apply SEO settings
+    if (settings.seo) {
+      if (settings.seo.title) {
+        document.title = settings.seo.title
+      }
+      if (settings.seo.description) {
+        let metaDesc = document.querySelector('meta[name="description"]')
+        if (!metaDesc) {
+          metaDesc = document.createElement("meta")
+          metaDesc.name = "description"
+          document.head.appendChild(metaDesc)
+        }
+        metaDesc.content = settings.seo.description
+      }
+    }
+  }
+
+  const applyHomeContent = (homeContent) => {
+    if (!homeContent) return
+
+    if (homeContent.heroTitle) {
+      const heroTitle = document.querySelector(".hero-main-title")
+      if (heroTitle) {
+        heroTitle.textContent = homeContent.heroTitle
+      }
+    }
+
+    if (homeContent.heroSubtitle) {
+      const heroSubtitle = document.querySelector(".hero-subtitle")
+      if (heroSubtitle) {
+        heroSubtitle.textContent = homeContent.heroSubtitle
+      }
+    }
+
+    if (homeContent.heroCTA) {
+      const ctaBtn = document.querySelector(".hero-cta-btn")
+      if (ctaBtn) {
+        ctaBtn.textContent = homeContent.heroCTA
+      }
+    }
+
+    if (homeContent.aboutTitle) {
+      const aboutTitle = document.querySelector(".about-title")
+      if (aboutTitle) {
+        aboutTitle.textContent = homeContent.aboutTitle
+      }
+    }
+
+    if (homeContent.aboutMission) {
+      const aboutText = document.querySelector(".about-text p")
+      if (aboutText) {
+        aboutText.textContent = homeContent.aboutMission
+      }
+    }
   }
 
   const init3DIcons = () => {
@@ -263,7 +386,6 @@ const App = (() => {
     }
   }
 
-  // Create product card
   const createProductCard = (product) => {
     const card = document.createElement("div")
     card.className = "product-card"
@@ -272,11 +394,14 @@ const App = (() => {
       card.classList.add("sale")
     }
 
-    const imageUrl = product.images && product.images.length > 0 ? product.images[0] : "/placeholder.svg"
+    const imageUrl =
+      product.images && product.images.length > 0
+        ? product.images[0]
+        : "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect fill='%23e0e0e0' width='300' height='300'/%3E%3Ctext x='50%25' y='50%25' font-size='18' fill='%23999' text-anchor='middle' dy='.3em'%3ENo Image%3C/text%3E%3C/svg%3E"
 
     card.innerHTML = `
       <div class="product-image-wrapper">
-        <img src="${imageUrl}" alt="${product.name}" class="product-image" onerror="this.src='/--encodeuricomponent-product-name--.jpg'">
+        <img src="${imageUrl}" alt="${product.name}" class="product-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22300%22%3E%3Crect fill=%22%23e0e0e0%22 width=%22300%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2218%22 fill=%22%23999%22 text-anchor=%22middle%22 dy=%22.3em%22%3ENo Image%3C/text%3E%3C/svg%3E'">
         ${hasSale ? '<span class="sale-badge">Sale</span>' : ""}
       </div>
       <div class="product-info">
@@ -305,19 +430,108 @@ const App = (() => {
     document.getElementById("modalTitle").textContent = product.name
     document.getElementById("modalDescription").textContent = product.fullDescription || product.description
 
+    const tabDescription = document.getElementById("tabDescription")
+    if (tabDescription) {
+      const descriptionText = tabDescription.querySelector("p") || document.createElement("p")
+      descriptionText.textContent = product.fullDescription || product.description
+      if (!tabDescription.querySelector("p")) {
+        tabDescription.appendChild(descriptionText)
+      }
+    }
+
+    const tabAdditionalInfo = document.getElementById("additional")
+    if (tabAdditionalInfo) {
+      const additionalInfoDiv = tabAdditionalInfo.querySelector(".additional-info")
+      if (additionalInfoDiv) {
+        // Clear existing content
+        additionalInfoDiv.innerHTML = ""
+
+        // Add SKU
+        const skuRow = document.createElement("div")
+        skuRow.className = "info-row"
+        skuRow.innerHTML = `
+          <span class="info-label"><i class="fas fa-barcode"></i> SKU:</span>
+          <span class="info-value">${product.sku || `E-${String(product.id).padStart(5, "0")}`}</span>
+        `
+        additionalInfoDiv.appendChild(skuRow)
+
+        // Add Category
+        const categoryRow = document.createElement("div")
+        categoryRow.className = "info-row"
+        categoryRow.innerHTML = `
+          <span class="info-label"><i class="fas fa-folder"></i> Category:</span>
+          <span class="info-value">${product.category ? product.category.charAt(0).toUpperCase() + product.category.slice(1) : "General"}</span>
+        `
+        additionalInfoDiv.appendChild(categoryRow)
+
+        // Add Available Sizes
+        if (product.sizes && product.sizes.length > 0) {
+          const sizesRow = document.createElement("div")
+          sizesRow.className = "info-row"
+          sizesRow.innerHTML = `
+            <span class="info-label"><i class="fas fa-ruler"></i> Available Sizes:</span>
+            <span class="info-value">${product.sizes.join(", ")}</span>
+          `
+          additionalInfoDiv.appendChild(sizesRow)
+        }
+
+        // Add Available Colors
+        if (product.colors && product.colors.length > 0) {
+          const colorNames = product.colors.map((c) => (typeof c === "object" ? c.name : c)).join(", ")
+          const colorsRow = document.createElement("div")
+          colorsRow.className = "info-row"
+          colorsRow.innerHTML = `
+            <span class="info-label"><i class="fas fa-palette"></i> Available Colors:</span>
+            <span class="info-value">${colorNames}</span>
+          `
+          additionalInfoDiv.appendChild(colorsRow)
+        }
+
+        // Add custom additional information if it exists
+        if (product.additionalInfo) {
+          const customRow = document.createElement("div")
+          customRow.className = "info-row"
+          customRow.innerHTML = `
+            <span class="info-label"><i class="fas fa-info-circle"></i> Additional Info:</span>
+            <span class="info-value">${product.additionalInfo}</span>
+          `
+          additionalInfoDiv.appendChild(customRow)
+        }
+      }
+    }
+
     document.getElementById("modalAvailability").textContent = "In stock"
-    document.getElementById("modalSKU").textContent = `E-${String(product.id).padStart(5, "0")}`
+    document.getElementById("modalSKU").textContent = product.sku || `E-${String(product.id).padStart(5, "0")}`
     document.getElementById("modalCategory").textContent = product.category
       ? product.category.charAt(0).toUpperCase() + product.category.slice(1)
       : "General"
-    document.getElementById("modalTags").textContent = product.sizes ? product.sizes.join(", ") : "Standard"
+
+    const availableSizesEl = document.getElementById("modalAvailableSizes")
+    if (availableSizesEl && product.sizes && product.sizes.length > 0) {
+      availableSizesEl.textContent = product.sizes.join(", ")
+      availableSizesEl.style.display = "block"
+    } else if (availableSizesEl) {
+      availableSizesEl.style.display = "none"
+    }
+
+    const availableColorsEl = document.getElementById("modalAvailableColors")
+    if (availableColorsEl && product.colors && product.colors.length > 0) {
+      const colorNames = product.colors.map((c) => (typeof c === "object" ? c.name : c)).join(", ")
+      availableColorsEl.textContent = colorNames
+      availableColorsEl.style.display = "block"
+    } else if (availableColorsEl) {
+      availableColorsEl.style.display = "none"
+    }
 
     document.getElementById("modalPrice").textContent = window.Currency.format(product.price)
     document.getElementById("modalOriginalPrice").textContent = product.originalPrice
       ? window.Currency.format(product.originalPrice)
       : ""
 
-    const imageUrl = product.images && product.images.length > 0 ? product.images[0] : "/placeholder.svg"
+    const imageUrl =
+      product.images && product.images.length > 0
+        ? product.images[0]
+        : "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect fill='%23e0e0e0' width='300' height='300'/%3E%3Ctext x='50%25' y='50%25' font-size='18' fill='%23999' text-anchor='middle' dy='.3em'%3ENo Image%3C/text%3E%3C/svg%3E"
     document.getElementById("mainImage").src = imageUrl
     document.getElementById("mainImage").alt = product.name
 
@@ -360,38 +574,31 @@ const App = (() => {
     const colorSelector = document.getElementById("colorSelector")
     colorSelector.innerHTML = ""
     if (product.colors && product.colors.length > 0) {
-      const colorMap = {
-        Black: "#000000",
-        White: "#FFFFFF",
-        Navy: "#001f3f",
-        Red: "#FF4136",
-        Blue: "#0074D9",
-        Gray: "#AAAAAA",
-        Charcoal: "#36454F",
-        Cream: "#FFFDD0",
-        Brown: "#8B4513",
-        "Dark Brown": "#654321",
-        Tan: "#D2B48C",
-        Pink: "#FF69B4",
-      }
-
       product.colors.forEach((color, index) => {
         const swatch = document.createElement("div")
         swatch.className = `color-swatch ${index === 0 ? "active" : ""}`
-        swatch.style.backgroundColor = colorMap[color] || "#CCCCCC"
-        swatch.title = color
+
+        const hexColor = typeof color === "object" ? color.hex || color.name : color
+        const colorName = typeof color === "object" ? color.name : color
+
+        // Use hex value if it looks like a hex color, otherwise use as is
+        const displayColor = hexColor.startsWith("#") ? hexColor : hexColor
+        swatch.style.backgroundColor = displayColor || "#CCCCCC"
+        swatch.title = colorName
+
         swatch.addEventListener("click", () => {
           document.querySelectorAll(".color-swatch").forEach((s) => s.classList.remove("active"))
           swatch.classList.add("active")
-          document.getElementById("selectedColor").textContent = color.toUpperCase()
+          document.getElementById("selectedColor").textContent = colorName.toUpperCase()
           const colorSelect = document.getElementById("colorSelect")
           if (colorSelect) {
-            colorSelect.value = color
+            colorSelect.value = colorName
           }
         })
         colorSelector.appendChild(swatch)
       })
-      document.getElementById("selectedColor").textContent = product.colors[0].toUpperCase()
+      const firstColor = typeof product.colors[0] === "object" ? product.colors[0].name : product.colors[0]
+      document.getElementById("selectedColor").textContent = firstColor.toUpperCase()
     }
 
     // Reset quantity
@@ -426,11 +633,13 @@ const App = (() => {
     if (product.colors && product.colors.length > 0) {
       product.colors.forEach((color) => {
         const option = document.createElement("option")
-        option.value = color
-        option.textContent = color
+        const colorName = typeof color === "object" ? color.name : color
+        option.value = colorName
+        option.textContent = colorName
         colorSelect.appendChild(option)
       })
-      colorSelect.value = product.colors[0]
+      const firstColor = typeof product.colors[0] === "object" ? product.colors[0].name : product.colors[0]
+      colorSelect.value = firstColor
     }
 
     const checkoutButtons = document.querySelector(".checkout-buttons")
@@ -442,7 +651,6 @@ const App = (() => {
       designNowBtn.style.background = "#ff6b35"
       designNowBtn.style.borderColor = "#ff6b35"
       designNowBtn.onclick = () => {
-        // Navigate to designer page with product ID
         window.location.href = `designer.html?product_id=${currentProduct.id}`
       }
       checkoutButtons.appendChild(designNowBtn)
@@ -555,17 +763,11 @@ const App = (() => {
 
   // Update cart UI
   const updateCartUI = () => {
-    const cartCount = document.getElementById("cartCount")
     const cartItemsContainer = document.getElementById("cartItems")
-    const cartTotal = document.getElementById("cartTotal")
-
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0)
-    cartCount.textContent = totalItems
+    if (!cartItemsContainer) return
 
     if (cart.length === 0) {
-      cartItemsContainer.innerHTML =
-        '<p style="padding: 1rem; text-align: center; color: var(--text-secondary);">Your cart is empty</p>'
-      cartTotal.textContent = window.Currency.format(0)
+      cartItemsContainer.innerHTML = `<div class="empty-cart"><p>${t("cart.empty")}</p></div>`
       return
     }
 
@@ -573,7 +775,7 @@ const App = (() => {
       .map(
         (item, index) => `
       <div class="cart-item">
-        <img src="${item.image}" alt="${item.name}" class="cart-item-image" onerror="this.src='/--encodeuricomponent-item-name--.jpg'">
+        <img src="${item.image}" alt="${item.name}" class="cart-item-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22%3E%3Crect fill=%22%23e0e0e0%22 width=%22100%22 height=%22100%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2212%22 fill=%22%23999%22 text-anchor=%22middle%22 dy=%22.3em%22%3ENo Image%3C/text%3E%3C/svg%3E'">
         <div class="cart-item-details">
           <div class="cart-item-name">${item.name}</div>
           <div class="cart-item-size">Size: ${item.size}</div>
@@ -588,7 +790,7 @@ const App = (() => {
       .join("")
 
     const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
-    cartTotal.textContent = window.Currency.format(total)
+    document.getElementById("cartTotal").textContent = window.Currency.format(total)
   }
 
   // Remove from cart
@@ -833,200 +1035,6 @@ const App = (() => {
       icon.textContent = isDark ? "☀️" : "🌙"
 
       updateLogoForTheme(isDark ? "dark" : "light")
-    })
-
-    // Logo upload
-    setupLogoUpload()
-
-    document.getElementById("checkoutBtn").addEventListener("click", () => {
-      if (cart.length === 0) {
-        alert("Your cart is empty")
-        return
-      }
-
-      // Create checkout options modal
-      const checkoutOptions = document.createElement("div")
-      checkoutOptions.className = "checkout-options-modal"
-      checkoutOptions.innerHTML = `
-        <div class="checkout-options-content">
-          <h3>Choose Checkout Method</h3>
-          <div class="checkout-methods">
-            <button id="whatsappCheckoutMethod" class="checkout-method-btn whatsapp-method">
-              <span class="method-icon">💬</span>
-              <span class="method-name">Order via WhatsApp</span>
-              <span class="method-desc">Send order details to our team</span>
-            </button>
-            <button id="printfulCheckoutMethod" class="checkout-method-btn printful-method">
-              <span class="method-icon">🖨️</span>
-              <span class="method-name">Send to Printful</span>
-              <span class="method-desc">Automatic order processing</span>
-            </button>
-          </div>
-          <button id="closeCheckoutOptions" class="btn btn-secondary" style="width: 100%; margin-top: 1rem;">Cancel</button>
-        </div>
-      `
-
-      document.body.appendChild(checkoutOptions)
-
-      checkoutOptions.addEventListener("click", (e) => {
-        e.stopPropagation()
-        if (e.target === checkoutOptions) {
-          checkoutOptions.remove()
-        }
-      })
-
-      document.getElementById("whatsappCheckoutMethod").addEventListener("click", () => {
-        const currency = window.Currency.getCurrentCurrency()
-        const currencySymbol = window.Currency.getCurrencySymbol()
-        const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
-        const message = `Order Summary (${currency}):\n\n${cart.map((item) => `${item.name} (${item.size}, ${item.color}) x${item.quantity}: ${currencySymbol}${(item.price * item.quantity).toFixed(2)}`).join("\n")}\n\nTotal: ${currencySymbol}${total.toFixed(2)} (${currency})`
-
-        const whatsappNumber = "+212723242286"
-        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`
-        window.open(whatsappUrl, "_blank")
-
-        checkoutOptions.remove()
-        closeCart()
-      })
-
-      document.getElementById("printfulCheckoutMethod").addEventListener("click", () => {
-        // Create a form modal for customer information
-        const formModal = document.createElement("div")
-        formModal.className = "checkout-options-modal"
-        formModal.innerHTML = `
-          <div class="checkout-options-content" style="max-width: 500px;">
-            <button class="modal-close" style="position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 2rem; cursor: pointer; z-index: 10;">&times;</button>
-            <h3 style="margin-bottom: 1.5rem; margin-top: 1rem;">Complete Your Order</h3>
-            
-            <form id="customerInfoForm" style="display: flex; flex-direction: column; gap: 1rem;">
-              <div>
-                <label for="customerName" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Full Name *</label>
-                <input type="text" id="customerName" name="name" required placeholder="John Doe" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 0.5rem; font-size: 1rem;">
-              </div>
-              
-              <div>
-                <label for="customerEmail" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Email *</label>
-                <input type="email" id="customerEmail" name="email" required placeholder="john@example.com" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 0.5rem; font-size: 1rem;">
-              </div>
-              
-              <div>
-                <label for="customerPhone" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Phone Number *</label>
-                <input type="tel" id="customerPhone" name="phone" required placeholder="+1 (555) 123-4567" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 0.5rem; font-size: 1rem;">
-              </div>
-              
-              <div>
-                <label for="customerAddress" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Shipping Address *</label>
-                <textarea id="customerAddress" name="address" required placeholder="123 Main St, City, State, ZIP" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 0.5rem; font-size: 1rem; min-height: 80px; resize: vertical;"></textarea>
-              </div>
-              
-              <div>
-                <label for="customerNotes" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Special Instructions (Optional)</label>
-                <textarea id="customerNotes" name="notes" placeholder="Any special requests or notes..." style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 0.5rem; font-size: 1rem; min-height: 60px; resize: vertical;"></textarea>
-              </div>
-              
-              <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-                <button type="submit" class="btn btn-primary" style="flex: 1;">Submit Order</button>
-                <button type="button" id="cancelFormBtn" class="btn btn-secondary" style="flex: 1;">Cancel</button>
-              </div>
-            </form>
-          </div>
-        `
-
-        document.body.appendChild(formModal)
-
-        formModal.addEventListener("click", (e) => {
-          e.stopPropagation()
-          if (e.target === formModal) {
-            formModal.remove()
-          }
-        })
-
-        // Handle form submission
-        document.getElementById("customerInfoForm").addEventListener("submit", async (e) => {
-          e.preventDefault()
-
-          const GOOGLE_SHEET_URL =
-            "https://script.google.com/macros/s/AKfycbxBDYc_48nuDBi299DwvPaEelcf5JdrCK1rNidbsbxT2euvYU9iAb6_eRg5ck9I8nmT/exec"
-
-          // Collect form data
-          const formData = {
-            name: document.getElementById("customerName").value,
-            email: document.getElementById("customerEmail").value,
-            phone: document.getElementById("customerPhone").value,
-            address: document.getElementById("customerAddress").value,
-            notes: document.getElementById("customerNotes").value,
-            orderItems: cart.map((item) => ({
-              name: item.name,
-              size: item.size,
-              color: item.color,
-              quantity: item.quantity,
-              price: item.price,
-            })),
-            currency: window.Currency.getCurrentCurrency(),
-            total: cart.reduce((sum, item) => sum + item.price * item.quantity, 0),
-            orderDate: new Date().toLocaleString(),
-          }
-
-          console.log("[v0] ========== ORDER SUBMISSION START ==========")
-          console.log("[v0] Customer Name:", formData.name)
-          console.log("[v0] Customer Email:", formData.email)
-          console.log("[v0] Customer Phone:", formData.phone)
-          console.log("[v0] Shipping Address:", formData.address)
-          console.log("[v0] Special Notes:", formData.notes)
-          console.log("[v0] Order Items:", formData.orderItems)
-          console.log("[v0] Currency:", formData.currency)
-          console.log("[v0] Total Amount:", formData.total)
-          console.log("[v0] Order Date:", formData.orderDate)
-          console.log("[v0] Full Form Data:", JSON.stringify(formData, null, 2))
-          console.log("[v0] Sending to Google Sheet URL:", GOOGLE_SHEET_URL)
-
-          try {
-            console.log("[v0] Initiating fetch request...")
-            const response = await fetch(GOOGLE_SHEET_URL, {
-              method: "POST",
-              mode: "no-cors",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(formData),
-            })
-
-            console.log("[v0] ✅ Request sent successfully!")
-            console.log("[v0] Response status:", response.status)
-            console.log("[v0] Response type:", response.type)
-            console.log("[v0] ========== ORDER SUBMISSION END ==========")
-
-            alert(
-              "✅ Order submitted successfully! We will process your order and send you a confirmation email shortly.",
-            )
-
-            // Clear cart and close modals
-            cart = []
-            saveCart()
-            updateCartUI()
-            formModal.remove()
-            checkoutOptions.remove()
-            closeCart()
-          } catch (error) {
-            console.error("[v0] ❌ ERROR SENDING TO GOOGLE SHEET!")
-            console.error("[v0] Error message:", error.message)
-            console.error("[v0] Error name:", error.name)
-            console.error("[v0] Error stack:", error.stack)
-            console.error("[v0] Full error object:", error)
-            console.log("[v0] ========== ORDER SUBMISSION END (WITH ERROR) ==========")
-            alert("❌ There was an error submitting your order. Please try again or contact support.")
-          }
-        })
-
-        // Handle cancel button
-        document.getElementById("cancelFormBtn").addEventListener("click", () => {
-          formModal.remove()
-        })
-      })
-
-      document.getElementById("closeCheckoutOptions").addEventListener("click", () => {
-        checkoutOptions.remove()
-      })
     })
   }
 
@@ -1280,7 +1288,7 @@ const App = (() => {
               
               <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
                 <h4 style="margin-bottom: 0.5rem; color: var(--secondary-color);">Can I customize products?</h4>
-                <p style="color: var(--text-secondary); font-size: 0.9rem;">We offer custom printing and personalization for most products.</p>
+                <p style="color: var(--text-secondary); font-size: 0.8rem;">We offer custom printing and personalization for most products.</p>
               </div>
               
               <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
@@ -1356,7 +1364,7 @@ const App = (() => {
             const question = questionModal.querySelector("#questionText").value
 
             const whatsappNumber = "+212723242286"
-            const message = `Hi! I have a question:\n\nName: ${name}\nEmail: ${email}\n\nQuestion: ${question}`
+            const message = `Contact Form Submission:\n\nName: ${name}\nEmail: ${email}\n\nQuestion: ${question}`
             const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`
             window.open(whatsappUrl, "_blank")
 
@@ -1413,58 +1421,6 @@ const App = (() => {
       alert("Thank you for your message! We'll contact you soon via WhatsApp.")
       contactForm.reset()
     })
-  }
-
-  const applyWebsiteSettings = (settings) => {
-    if (!settings) return
-
-    // Apply store info to footer and header
-    if (settings.store) {
-      const storeNameElements = document.querySelectorAll(".store-name, .footer-store-name")
-      storeNameElements.forEach((el) => {
-        el.textContent = settings.store.name || "NEXA Print"
-      })
-
-      const storePhoneElements = document.querySelectorAll(".store-phone, .footer-phone")
-      storePhoneElements.forEach((el) => {
-        el.textContent = settings.store.phone || "+212 723 242 286"
-      })
-
-      const storeEmailElements = document.querySelectorAll(".store-email, .footer-email")
-      storeEmailElements.forEach((el) => {
-        el.textContent = settings.store.email || "info@nexaprint.com"
-      })
-    }
-
-    // Apply theme colors
-    if (settings.theme) {
-      const root = document.documentElement
-      root.style.setProperty("--primary-color", settings.theme.primaryColor || "#6a79fa")
-      root.style.setProperty("--secondary-color", settings.theme.secondaryColor || "#1a1a1a")
-      root.style.setProperty("--accent-color", settings.theme.accentColor || "#27ae60")
-      root.style.setProperty("--background-color", settings.theme.backgroundColor || "#f5f5f5")
-    }
-
-    // Apply SEO
-    if (settings.seo) {
-      if (settings.seo.title) {
-        document.title = settings.seo.title
-      }
-      if (settings.seo.description) {
-        const metaDescription = document.querySelector('meta[name="description"]')
-        if (metaDescription) {
-          metaDescription.setAttribute("content", settings.seo.description)
-        }
-      }
-      if (settings.seo.keywords) {
-        const metaKeywords = document.querySelector('meta[name="keywords"]')
-        if (metaKeywords) {
-          metaKeywords.setAttribute("content", settings.seo.keywords)
-        }
-      }
-    }
-
-    console.log("[v0] Website settings applied successfully")
   }
 
   return {
@@ -1574,7 +1530,7 @@ window.PRODUCTS_DATA = [
     images: [
       "https://demo811.leotheme.com/prestashop/leo_aprin_elementor_demo/24-home_default/hummingbird-printed-t-shirt.jpg",
     ],
-    sizes: ["XS", "S", "M", "L", "XL"],
+    sizes: ["XS", "S", "M", "L", "XL", "XXL"],
     colors: ["Black", "White", "Pink", "Red"],
     category: "womens-clothing",
     fullDescription: "Trendy crop top perfect for modern style and comfort.",

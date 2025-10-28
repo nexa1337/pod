@@ -1,16 +1,39 @@
-// Admin Dashboard System
-const AdminDashboard = (() => {
+const AdminDashboardEnhanced = (() => {
   let products = []
   let orders = []
   let users = []
+  let settings = {}
 
   const AdminAuth = {
-    isLoggedIn: () => true,
-    getLoginData: () => ({ username: "admin" }),
-    logout: () => {},
+    isLoggedIn: () => {
+      const loginData = localStorage.getItem("adminLogin")
+      if (!loginData) return false
+      try {
+        const data = JSON.parse(loginData)
+        return data.token && data.username
+      } catch (e) {
+        return false
+      }
+    },
+    getLoginData: () => {
+      const loginData = localStorage.getItem("adminLogin")
+      if (!loginData) return null
+      try {
+        return JSON.parse(loginData)
+      } catch (e) {
+        return null
+      }
+    },
+    logout: () => {
+      localStorage.removeItem("adminLogin")
+      localStorage.removeItem("adminRemember")
+      window.location.href = "index.html"
+    },
   }
 
   const init = () => {
+    console.log("[v0] Initializing Enhanced Admin Dashboard...")
+
     // Check authentication
     if (!AdminAuth.isLoggedIn()) {
       window.location.href = "index.html"
@@ -25,6 +48,25 @@ const AdminDashboard = (() => {
     loadDashboardData()
     loadSettingsForm()
     renderDashboard()
+
+    // Setup real-time sync
+    setupRealtimeSync()
+
+    console.log("[v0] Enhanced Admin Dashboard initialized")
+  }
+
+  const setupRealtimeSync = () => {
+    // Listen for data sync events
+    window.addEventListener("dataSync:productsUpdated", (e) => {
+      products = e.detail.products
+      renderProductsTable()
+      renderDashboard()
+    })
+
+    window.addEventListener("dataSync:settingsUpdated", (e) => {
+      settings = e.detail.settings
+      loadSettingsForm()
+    })
   }
 
   const setupEventListeners = () => {
@@ -44,12 +86,42 @@ const AdminDashboard = (() => {
       }
     })
 
+    // Product management
+    document.getElementById("addProductBtn").addEventListener("click", openProductModal)
+    document.getElementById("productForm").addEventListener("submit", handleProductSubmit)
+    document.querySelector("#productModal .modal-close").addEventListener("click", closeProductModal)
+
     // Settings form
     document.getElementById("settingsForm").addEventListener("submit", handleSettingsSubmit)
 
     // Sidebar toggle for mobile
     document.getElementById("sidebarToggle").addEventListener("click", () => {
       document.querySelector(".sidebar-nav").classList.toggle("active")
+    })
+
+    // Tab switching for settings
+    document.querySelectorAll(".settings-tab-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const tabName = btn.getAttribute("data-tab")
+        document.querySelectorAll(".settings-tab-btn").forEach((b) => b.classList.remove("active"))
+        document.querySelectorAll(".settings-tab-content").forEach((c) => c.classList.remove("active"))
+        btn.classList.add("active")
+        document.getElementById(tabName + "-tab").classList.add("active")
+      })
+    })
+
+    // Color picker listeners
+    document.getElementById("primaryColor")?.addEventListener("change", (e) => {
+      document.getElementById("primaryColorValue").textContent = e.target.value
+    })
+    document.getElementById("secondaryColor")?.addEventListener("change", (e) => {
+      document.getElementById("secondaryColorValue").textContent = e.target.value
+    })
+    document.getElementById("accentColor")?.addEventListener("change", (e) => {
+      document.getElementById("accentColorValue").textContent = e.target.value
+    })
+    document.getElementById("backgroundColor")?.addEventListener("change", (e) => {
+      document.getElementById("backgroundColorValue").textContent = e.target.value
     })
   }
 
@@ -90,19 +162,23 @@ const AdminDashboard = (() => {
   }
 
   const loadDashboardData = () => {
-    // Load products from localStorage first, then fallback to window.PRODUCTS_DATA
+    // Load products
     const savedProducts = localStorage.getItem("websiteProducts")
     products = savedProducts ? JSON.parse(savedProducts) : window.parent.PRODUCTS_DATA || []
 
-    // Load orders from localStorage
+    // Load orders
     const savedOrders = localStorage.getItem("orders")
     orders = savedOrders ? JSON.parse(savedOrders) : []
 
-    // Load users from localStorage
+    // Load users
     const savedUsers = localStorage.getItem("adminUsers")
     users = savedUsers
       ? JSON.parse(savedUsers)
       : [{ id: 1, username: "admin", email: "admin@nexaprint.com", role: "admin", status: "active" }]
+
+    // Load settings
+    const savedSettings = localStorage.getItem("websiteSettings")
+    settings = savedSettings ? JSON.parse(savedSettings) : {}
 
     console.log("[v0] Dashboard data loaded:", {
       products: products.length,
@@ -140,16 +216,16 @@ const AdminDashboard = (() => {
     products.forEach((product) => {
       const row = document.createElement("tr")
       row.innerHTML = `
-                <td>${product.id}</td>
-                <td>${product.name}</td>
-                <td>${product.category || "N/A"}</td>
-                <td>${product.price} MAD</td>
-                <td>In Stock</td>
-                <td>
-                    <button class="btn-edit" onclick="AdminDashboard.editProduct(${product.id})">Edit</button>
-                    <button class="btn-delete" onclick="AdminDashboard.deleteProduct(${product.id})">Delete</button>
-                </td>
-            `
+        <td>${product.id}</td>
+        <td>${product.name}</td>
+        <td>${product.category || "N/A"}</td>
+        <td>${product.price} MAD</td>
+        <td>In Stock</td>
+        <td>
+          <button class="btn-edit" onclick="AdminDashboardEnhanced.editProduct(${product.id})">Edit</button>
+          <button class="btn-delete" onclick="AdminDashboardEnhanced.deleteProduct(${product.id})">Delete</button>
+        </td>
+      `
       tbody.appendChild(row)
     })
   }
@@ -185,10 +261,10 @@ const AdminDashboard = (() => {
       const card = document.createElement("div")
       card.className = "category-card"
       card.innerHTML = `
-                <div class="category-icon"><i class="fas ${cat.icon}"></i></div>
-                <div class="category-name">${cat.name}</div>
-                <div class="category-count">${cat.count} products</div>
-            `
+        <div class="category-icon"><i class="fas ${cat.icon}"></i></div>
+        <div class="category-name">${cat.name}</div>
+        <div class="category-count">${cat.count} products</div>
+      `
       grid.appendChild(card)
     })
   }
@@ -200,15 +276,15 @@ const AdminDashboard = (() => {
     orders.forEach((order) => {
       const row = document.createElement("tr")
       row.innerHTML = `
-                <td>#${order.id || "N/A"}</td>
-                <td>${order.name || "N/A"}</td>
-                <td>${new Date(order.date || Date.now()).toLocaleDateString()}</td>
-                <td>${order.total || 0} MAD</td>
-                <td><span class="status-badge">${order.status || "Pending"}</span></td>
-                <td>
-                    <button class="btn-view" onclick="AdminDashboard.viewOrder(${order.id})">View</button>
-                </td>
-            `
+        <td>#${order.id || "N/A"}</td>
+        <td>${order.name || "N/A"}</td>
+        <td>${new Date(order.date || Date.now()).toLocaleDateString()}</td>
+        <td>${order.total || 0} MAD</td>
+        <td><span class="status-badge">${order.status || "Pending"}</span></td>
+        <td>
+          <button class="btn-view" onclick="AdminDashboardEnhanced.viewOrder(${order.id})">View</button>
+        </td>
+      `
       tbody.appendChild(row)
     })
 
@@ -224,26 +300,78 @@ const AdminDashboard = (() => {
     users.forEach((user) => {
       const row = document.createElement("tr")
       row.innerHTML = `
-                <td>${user.id}</td>
-                <td>${user.username}</td>
-                <td>${user.email}</td>
-                <td>${user.role}</td>
-                <td><span class="status-badge">${user.status}</span></td>
-                <td>
-                    <button class="btn-edit" onclick="AdminDashboard.editUser(${user.id})">Edit</button>
-                </td>
-            `
+        <td>${user.id}</td>
+        <td>${user.username}</td>
+        <td>${user.email}</td>
+        <td>${user.role}</td>
+        <td><span class="status-badge">${user.status}</span></td>
+        <td>
+          <button class="btn-edit" onclick="AdminDashboardEnhanced.editUser(${user.id})">Edit</button>
+        </td>
+      `
       tbody.appendChild(row)
     })
   }
 
   const openProductModal = () => {
-    navigateToSection("products")
+    document.getElementById("productModal").classList.add("active")
+    document.getElementById("productModalTitle").textContent = "Add New Product"
+    document.getElementById("productForm").reset()
   }
 
-  const closeProductModal = () => {}
+  const closeProductModal = () => {
+    document.getElementById("productModal").classList.remove("active")
+  }
 
-  const handleProductSubmit = (e) => {}
+  const handleProductSubmit = (e) => {
+    e.preventDefault()
+
+    const editingProductId = document.getElementById("productForm").dataset.editingProductId
+
+    const productData = {
+      id: editingProductId ? Number.parseInt(editingProductId) : Math.max(...products.map((p) => p.id), 0) + 1,
+      name: document.getElementById("productName").value,
+      category: document.getElementById("productCategory").value,
+      price: Number.parseFloat(document.getElementById("productPrice").value),
+      originalPrice: Number.parseFloat(document.getElementById("productOriginalPrice").value) || null,
+      description: document.getElementById("productDescription").value,
+      fullDescription: document.getElementById("productFullDescription").value,
+      sizes: document
+        .getElementById("productSizes")
+        .value.split(",")
+        .map((s) => s.trim())
+        .filter((s) => s),
+      colors: document
+        .getElementById("productColors")
+        .value.split(",")
+        .map((c) => c.trim())
+        .filter((c) => c),
+      images: [document.getElementById("productImages").value].filter((img) => img),
+    }
+
+    if (editingProductId) {
+      const index = products.findIndex((p) => p.id === Number.parseInt(editingProductId))
+      if (index !== -1) {
+        products[index] = productData
+        console.log("[v0] Product updated:", productData)
+      }
+    } else {
+      products.push(productData)
+      console.log("[v0] New product added:", productData)
+    }
+
+    // Save and sync
+    localStorage.setItem("websiteProducts", JSON.stringify(products))
+    window.dispatchEvent(new CustomEvent("productsUpdated", { detail: { products } }))
+
+    alert(editingProductId ? "Product updated successfully!" : "Product added successfully!")
+
+    closeProductModal()
+    renderProductsTable()
+    renderDashboard()
+
+    delete document.getElementById("productForm").dataset.editingProductId
+  }
 
   const handleSettingsSubmit = (e) => {
     e.preventDefault()
@@ -278,8 +406,6 @@ const AdminDashboard = (() => {
     }
 
     localStorage.setItem("websiteSettings", JSON.stringify(settings))
-    console.log("[v0] Settings saved to localStorage:", settings)
-
     window.dispatchEvent(new CustomEvent("settingsUpdated", { detail: { settings } }))
 
     alert("All settings saved successfully!")
@@ -288,14 +414,8 @@ const AdminDashboard = (() => {
   const deleteProduct = (productId) => {
     if (confirm("Are you sure you want to delete this product?")) {
       products = products.filter((p) => p.id !== productId)
-
-      // Save to localStorage
       localStorage.setItem("websiteProducts", JSON.stringify(products))
-      console.log("[v0] ✅ Products saved to localStorage after deletion")
-
       window.dispatchEvent(new CustomEvent("productsUpdated", { detail: { products } }))
-      console.log("[v0] ✅ Dispatched productsUpdated event to website")
-
       console.log("[v0] Product deleted:", productId)
       renderProductsTable()
       renderDashboard()
@@ -317,7 +437,6 @@ const AdminDashboard = (() => {
       document.getElementById("productImages").value =
         product.images && product.images.length > 0 ? product.images[0] : ""
 
-      // Store the product ID being edited
       document.getElementById("productForm").dataset.editingProductId = productId
 
       openProductModal()
@@ -342,7 +461,6 @@ const AdminDashboard = (() => {
         const settings = JSON.parse(savedSettings)
         console.log("[v0] Loading saved settings:", settings)
 
-        // Load store info
         if (settings.store) {
           document.getElementById("storeName").value = settings.store.name || ""
           document.getElementById("storeDescription").value = settings.store.description || ""
@@ -352,7 +470,6 @@ const AdminDashboard = (() => {
           document.getElementById("storeCountry").value = settings.store.country || ""
         }
 
-        // Load theme
         if (settings.theme) {
           document.getElementById("primaryColor").value = settings.theme.primaryColor || "#6a79fa"
           document.getElementById("secondaryColor").value = settings.theme.secondaryColor || "#1a1a1a"
@@ -360,14 +477,12 @@ const AdminDashboard = (() => {
           document.getElementById("backgroundColor").value = settings.theme.backgroundColor || "#f5f5f5"
         }
 
-        // Load SEO
         if (settings.seo) {
           document.getElementById("seoTitle").value = settings.seo.title || ""
           document.getElementById("seoDescription").value = settings.seo.description || ""
           document.getElementById("seoKeywords").value = settings.seo.keywords || ""
         }
 
-        // Load social
         if (settings.social) {
           document.getElementById("socialFacebook").value = settings.social.facebook || ""
           document.getElementById("socialInstagram").value = settings.social.instagram || ""
@@ -390,18 +505,20 @@ const AdminDashboard = (() => {
   }
 })()
 
+// Initialize on DOM ready
+document.addEventListener("DOMContentLoaded", () => {
+  AdminDashboardEnhanced.init()
+})
+
 // Make navigateToSection globally accessible
 function navigateToSection(section) {
-  // Hide all sections
   document.querySelectorAll(".content-section").forEach((s) => s.classList.remove("active"))
 
-  // Show selected section
   const selectedSection = document.getElementById(section)
   if (selectedSection) {
     selectedSection.classList.add("active")
   }
 
-  // Update nav items
   document.querySelectorAll(".nav-item").forEach((item) => {
     item.classList.remove("active")
     if (item.getAttribute("data-section") === section) {
@@ -409,7 +526,6 @@ function navigateToSection(section) {
     }
   })
 
-  // Update page title
   const titles = {
     dashboard: "Dashboard",
     products: "Product Management",
@@ -417,39 +533,11 @@ function navigateToSection(section) {
     settings: "Website Settings",
     orders: "Orders Management",
     users: "User Management",
+    "home-content": "Home Page Content",
   }
 
   document.getElementById("pageTitle").textContent = titles[section] || "Dashboard"
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-  AdminDashboard.init()
-
-  document.querySelectorAll(".settings-tab-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const tabName = btn.getAttribute("data-tab")
-
-      document.querySelectorAll(".settings-tab-btn").forEach((b) => b.classList.remove("active"))
-      document.querySelectorAll(".settings-tab-content").forEach((c) => c.classList.remove("active"))
-
-      btn.classList.add("active")
-      document.getElementById(tabName + "-tab").classList.add("active")
-    })
-  })
-
-  document.getElementById("primaryColor").addEventListener("change", (e) => {
-    document.getElementById("primaryColorValue").textContent = e.target.value
-  })
-  document.getElementById("secondaryColor").addEventListener("change", (e) => {
-    document.getElementById("secondaryColorValue").textContent = e.target.value
-  })
-  document.getElementById("accentColor").addEventListener("change", (e) => {
-    document.getElementById("accentColorValue").textContent = e.target.value
-  })
-  document.getElementById("backgroundColor").addEventListener("change", (e) => {
-    document.getElementById("backgroundColorValue").textContent = e.target.value
-  })
-})
 
 function resetSettings() {
   if (confirm("Are you sure you want to reset all settings to default?")) {
