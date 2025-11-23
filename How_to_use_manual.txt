@@ -1,0 +1,126 @@
+
+==============================================================================
+N E X A 1337 | OPERATOR MANUAL
+==============================================================================
+Welcome to the backend of the frontend. This manual explains how to take full 
+control of your NEXA 1337 Print-on-Demand web application.
+
+The code is built with React and Tailwind CSS. Most of your content changes 
+will happen in specific files without needing to touch complex logic.
+
+------------------------------------------------------------------------------
+1. MANAGING PRODUCTS (Add, Edit, Delete)
+------------------------------------------------------------------------------
+All product data is stored in a single file: `data.ts`.
+
+-> HOW TO ADD A NEW PRODUCT:
+   1. Open `data.ts`.
+   2. Locate the `export const PRODUCTS` array.
+   3. Copy an existing product object (everything between `{` and `},`) and paste it.
+   4. Update the fields:
+      - `id`: Must be unique (e.g., "20").
+      - `title`: Name of the product.
+      - `price`: Price in USD (Currency conversion handles the rest automatically).
+      - `shippingType`: Set to 'Morocco' or 'International'. This changes the checkout buttons.
+      - `images`: An array of image URLs. You can use links (https://...) or local paths.
+      - `category`: Must match one of the categories in `ProductSection.tsx` to appear in filters.
+      - `sizes`: Array of strings (e.g., ['S', 'M', 'L']). **NEW**: These now appear on the product card preview.
+      - `colors`: Array of HEX codes (e.g., ['#000000', '#ffffff']). **NEW**: These render as colored circles on the card.
+   5. Save the file. The site updates instantly.
+
+-> VISUAL PREVIEW NOTE:
+   The product cards now display the first 4 colors and first 3 sizes automatically. 
+   Ensure your `colors` array contains valid HEX codes (like #FF0000 for red) for the dots to show correctly.
+
+-> HOW TO CHANGE PRODUCT CATEGORIES:
+   1. If you add a new category in `data.ts` (e.g., "Sneakers"), you must also add it to the filter list.
+   2. Open `components/ProductSection.tsx`.
+   3. Find `const categories = [...]`.
+   4. Add your new category name to that list.
+
+------------------------------------------------------------------------------
+2. CONFIGURING THE CHATBOT (NEXA AI)
+------------------------------------------------------------------------------
+The chatbot logic is contained in `components/ChatAssistant.tsx`.
+
+-> HOW TO ADD NEW ANSWERS:
+   1. Open `components/ChatAssistant.tsx`.
+   2. Look for the `handleOptionClick` function and the `switch (option.value)` statement.
+   3. To add a new flow:
+      - Add a new `case 'your_new_command':`.
+      - Set `botText` to your desired answer.
+      - Set `nextOptions` to define what buttons the user sees next.
+      - Add `break;`.
+   
+   Example:
+   case 'pricing':
+      botText = "Our prices start at $20 for tees and $45 for hoodies.";
+      nextOptions = [{ label: "Main Menu", value: "menu" }];
+      break;
+
+-> HOW TO ADD A BUTTON TRIGGERING THAT ANSWER:
+   1. Find the `options` array in the `menu` case (or any other case).
+   2. Add `{ label: "Check Prices", value: "pricing" }`.
+
+------------------------------------------------------------------------------
+3. CUSTOMIZING THE HERO SECTION (3D Mockup & Text)
+------------------------------------------------------------------------------
+-> CHANGE HEADLINE TEXT:
+   1. Open `components/Hero.tsx`.
+   2. Search for <h1>. Change "FUTURE READY" to your text.
+
+-> CHANGE THE 3D HOODIE IMAGE:
+   1. Open `components/Hero.tsx`.
+   2. Find the <img> tag inside the `perspective-container`.
+   3. Change `src` to your transparent PNG hoodie image.
+
+-> CHANGE THE LOGO ON THE HOODIE:
+   1. In `components/Hero.tsx`, look for the <div> with comment `{/* LOGO PRINTING LAYER */}`.
+   2. Change the text inside <h2> (NEXA) and <h3> (1337).
+
+------------------------------------------------------------------------------
+4. EDITING HEADER & FOOTER
+------------------------------------------------------------------------------
+-> HEADER (Logo, Nav Links):
+   - File: `components/Header.tsx`.
+   - To change the logo text "N E X A 1337", look for the `text-2xl` div.
+   - To change navigation links, look for the `scrollToSection` buttons.
+
+-> FOOTER (Social Links, Policies):
+   - File: `components/ExtraSections.tsx`.
+   - Scroll to the bottom to find `export const Footer`.
+   - You can update the social media links (Instagram, LinkedIn) inside the `href` attributes.
+   - You can edit the Policy Modal text inside the `openPolicy` function switch cases.
+
+------------------------------------------------------------------------------
+5. CONFIGURING ORDERS & WHATSAPP
+------------------------------------------------------------------------------
+-> CHANGE ADMIN PHONE NUMBER:
+   The app sends orders to WhatsApp. You need to update the phone number in two places:
+   
+   1. For International Orders:
+      - Open `components/InternationalOrderModal.tsx`.
+      - Find `const adminNumber = "+212723242286";` and update it.
+      
+   2. For Cash on Delivery (Morocco) Orders:
+      - Open `components/CODModal.tsx`.
+      - Find `const adminNumber = "+212723242286";` and update it.
+
+   3. For Contact Form:
+      - Open `components/ExtraSections.tsx` (ContactSection).
+      - Update the number in `handleSend`.
+
+------------------------------------------------------------------------------
+6. PAYMENT DETAILS (Bank/PayPal)
+------------------------------------------------------------------------------
+-> EDIT BANK INFO (CIH / PayPal):
+   1. Open `components/CODModal.tsx`.
+   2. Search for "CIH Bank" or "PayPal".
+   3. Update the Account Name, RIB, and Email address displayed to the user.
+   
+   1. Open `components/QuickViewModal.tsx`.
+   2. Search for "PayPal" to update the "Friends & Family" email instruction.
+
+==============================================================================
+END OF MANUAL
+==============================================================================

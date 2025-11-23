@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <title>N E X A 1337 | Print On Demand</title>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: '#6366f1', // Indigo-500 for a tech feel
+              secondary: '#10b981',
+              dark: '#050505', // Deep black for future aesthetic
+              'dark-card': '#0a0a0a',
+              'neon-blue': '#00f3ff',
+              'neon-pink': '#ff00ff',
+            },
+            fontFamily: {
+              mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
+            },
+            animation: {
+              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'float': 'float 6s ease-in-out infinite',
+              'float-delayed': 'float 6s ease-in-out 3s infinite',
+              'glitch': 'glitch 2s linear infinite',
+              'spin-slow': 'spin 12s linear infinite',
+              'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+            },
+            keyframes: {
+              fadeInUp: {
+                '0%': { opacity: '0', transform: 'translateY(20px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-20px)' },
+              },
+              glitch: {
+                '2%, 64%': { transform: 'translate(2px,0) skew(0deg)' },
+                '4%, 60%': { transform: 'translate(-2px,0) skew(0deg)' },
+                '62%': { transform: 'translate(0,0) skew(5deg)' },
+              },
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      html {
+        scroll-padding-top: 100px;
+      }
+      body {
+        background-color: #050505;
+        color: #ffffff;
+      }
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #050505;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #333;
+        border-radius: 3px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #6366f1;
+      }
+      
+      /* Futuristic Grid Background */
+      .bg-grid-pattern {
+        background-image: 
+          linear-gradient(to right, rgba(50, 50, 50, 0.1) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(50, 50, 50, 0.1) 1px, transparent 1px);
+        background-size: 50px 50px;
+      }
+      
+      /* Noise Texture */
+      .bg-noise {
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+      }
+
+      /* Text Stroke for Glitch Effects */
+      .text-stroke {
+        -webkit-text-stroke: 1px rgba(255,255,255,0.2);
+        color: transparent;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "jspdf": "https://aistudiocdn.com/jspdf@^2.5.1"
+  }
+}
+</script>
+<link rel="stylesheet" href="/src/index.css">
+</head>
+  <body class="bg-gray-50 text-gray-900 dark:bg-dark dark:text-gray-100 transition-colors duration-300 antialiased">
+    <div id="root"></div>
+  <script type="module" src="/src/index.tsx"></script>
+</body>
+</html>
